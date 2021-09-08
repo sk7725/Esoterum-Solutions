@@ -9,16 +9,7 @@ public interface Binaryc {
     }
 
     default boolean canSignal(Building to, Building from){
-        return from != null && (!from.block.rotate || from.front() == to);
-    }
-
-    default void getConnected(BinaryBlock.BinaryBuild to){
-        to.connected.clear();
-        for(Building other : to.proximity){
-            if(other.block instanceof BinaryBlock && other.team == to.team){
-                to.connected.add((BinaryBlock.BinaryBuild) other);
-            }
-        }
+        return from != null && from.block instanceof BinaryBlock && from.team == to.team && (!from.block.rotate || from.front() == to);
     }
 
 }

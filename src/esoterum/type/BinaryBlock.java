@@ -7,6 +7,7 @@ import arc.struct.Seq;
 import esoterum.interfaces.*;
 import mindustry.gen.*;
 import mindustry.world.*;
+import mindustry.world.blocks.*;
 
 public class BinaryBlock extends Block {
     public TextureRegion connectionRegion;
@@ -33,27 +34,37 @@ public class BinaryBlock extends Block {
     public class BinaryBuild extends Building implements Binaryc {
         public boolean lastSignal;
         public boolean nextSignal;
-        public Seq<BinaryBuild> connected = new Seq<>(4);
-        public BinaryBuild frontBuild = null;
+        public Building frontBuild = null;
 
         @Override
         public void draw() {
             Draw.rect(region, x, y);
             Draw.color(Color.white, Color.green, lastSignal ? 1f : 0f);
             Draw.rect(topRegion, x, y, rotation * 90f);
-            if(drawConnection){
-                for(BinaryBlock.BinaryBuild other : connected){
-                    Draw.rect(connectionRegion, x, y, relativeTo(other) * 90f);
-                }
-            }
+            for(int i = 0; i < 4; i++){
+                Draw.color(Color.white, Color.green, sNearby(i) ? 1f : 0f);
+                Draw.rect(connectionRegion, x, y, rotation * 90f + i * 90f);
+           }
         }
 
-        @Override
-        public void onProximityUpdate() {
-            super.onProximityUpdate();
-            frontBuild = (BinaryBuild) front();
-            getConnected((BinaryBuild) tile.build);
-
+        public boolean sLeft(){
+            return canSignal(this, left()) && ((BinaryBuild) left()).lastSignal;
         }
+        public boolean sRight(){
+            return canSignal(this, right()) && ((BinaryBuild) right()).lastSignal;
+        }
+        public boolean sBack(){
+            return canSignal(this, back()) && ((BinaryBuild) back()).lastSignal;
+        }
+        public boolean sFront(){
+            return canSignal(this, front()) && ((BinaryBuild) front()).lastSignal;
+        }
+
+        public boolean sNearby(int rot){
+            int side = (rot + rotation) % 4;
+            if(nearby(side) == null)return false;
+            return canSignal(this, nearby(side)) && ((BinaryBuild) nearby(side)).lastSignal;
+        }
+
     }
 }

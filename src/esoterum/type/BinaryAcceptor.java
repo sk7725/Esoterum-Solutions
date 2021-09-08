@@ -16,10 +16,11 @@ public class BinaryAcceptor extends BinaryBlock {
         }
         @Override
         public boolean signal() {
-            for(BinaryBuild other : connected){
-                if(other.lastSignal && canSignal(tile.build, other) && other != frontBuild)return true;
+            boolean out = false;
+            for (boolean b : new boolean[]{sBack(), sLeft(), sRight()}) {
+                out |= b;
             }
-            return false;
+            return out;
         }
     }
 }
