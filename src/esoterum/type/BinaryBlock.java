@@ -40,7 +40,7 @@ public class BinaryBlock extends Block {
             Draw.rect(region, x, y);
             if(drawConnection) for (Building b : new Building[]{back(), left(), right(), front()}) {
                 if(b == null || !(b.block instanceof BinaryBlock) || b.team != team )continue;
-                Draw.color(Color.white, Color.green, (b == front() && lastSignal) || (((BinaryBuild) b).lastSignal && (b.front() == this || !b.rotate)) ? 1f : 0f);
+                Draw.color(Color.white, Color.green, (b == front() && lastSignal) || (((BinaryBuild) b).lastSignal && (b.front() == this || !b.block.rotate)) ? 1f : 0f);
                 Draw.rect(connectionRegion, x, y, relativeTo(b) * 90);
             }
             Draw.color(Color.white, Color.green, lastSignal ? 1f : 0f);
