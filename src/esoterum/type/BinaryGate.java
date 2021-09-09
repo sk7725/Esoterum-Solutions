@@ -31,14 +31,14 @@ public class BinaryGate extends BinaryAcceptor {
         @Override
         public void draw(){
             Draw.rect(region, x, y);
-            Draw.color(Color.white, Color.green, lastSignal ? 1f : 0f);
-            Draw.rect(topRegion, x, y, rotation * 90f);
-            Draw.rect(connectionRegion, x, y, rotation * 90f );
             for(int i = 0; i < 3; i++){
                 if(!inputs[i])continue;
                 Draw.color(Color.white, Color.green, results[i] ? 1f : 0f);
                 Draw.rect(connectionRegion, x, y, (90f + 90f * i) + rotation * 90f );
             }
+            Draw.color(Color.white, Color.green, lastSignal ? 1f : 0f);
+            Draw.rect(topRegion, x, y, rotation * 90f);
+            Draw.rect(connectionRegion, x, y, rotation * 90f );
         }
     }
 }

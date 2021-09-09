@@ -1,5 +1,6 @@
 package esoterum.content;
 
+import arc.Core;
 import esoterum.type.*;
 import mindustry.ctype.ContentList;
 import mindustry.world.*;
@@ -14,7 +15,13 @@ public class EsoBlocks implements ContentList {
             buildVisibility = BuildVisibility.hidden;
         }};
 
-        esoWire = new BinaryAcceptor("binary-wire");
+        esoWire = new BinaryAcceptor("binary-wire"){
+            @Override
+            public void load(){
+                super.load();
+                connectionRegion = Core.atlas.find("eso-connection-large");
+            }
+        };
 
         esoButton = new BinarySwitch("binary-switch");
 

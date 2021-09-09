@@ -38,13 +38,13 @@ public class BinaryBlock extends Block {
         @Override
         public void draw(){
             Draw.rect(region, x, y);
-            Draw.color(Color.white, Color.green, lastSignal ? 1f : 0f);
-            Draw.rect(topRegion, x, y, rotation * 90f);
             if(drawConnection) for (Building b : new Building[]{back(), left(), right(), front()}) {
                 if(b == null || !(b.block instanceof BinaryBlock) || b.team != team )continue;
                 Draw.color(Color.white, Color.green, (b == front() && lastSignal) || ((BinaryBuild) b).lastSignal ? 1f : 0f);
                 Draw.rect(connectionRegion, x, y, relativeTo(b) * 90);
             }
+            Draw.color(Color.white, Color.green, lastSignal ? 1f : 0f);
+            Draw.rect(topRegion, x, y, rotation * 90f);
         }
 
         public boolean sLeft(){
