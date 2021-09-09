@@ -29,7 +29,7 @@ public class BinaryGate extends BinaryAcceptor {
         }
 
         @Override
-        public void draw() {
+        public void draw(){
             Draw.rect(region, x, y);
             Draw.color(Color.white, Color.green, lastSignal ? 1f : 0f);
             Draw.rect(topRegion, x, y, rotation * 90f);

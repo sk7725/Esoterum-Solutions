@@ -14,25 +14,19 @@ public class EsoBlocks implements ContentList {
             buildVisibility = BuildVisibility.hidden;
         }};
 
-        esoWire = new BinaryAcceptor("binary-wire"){{
-            buildVisibility = BuildVisibility.shown;
-        }};
+        esoWire = new BinaryAcceptor("binary-wire");
 
-        esoButton = new BinarySwitch("binary-switch"){{
-            buildVisibility = BuildVisibility.shown;
-        }};
+        esoButton = new BinarySwitch("binary-switch");
 
         // LOGIC GATES
         // Skipping OR because they're basically just two wires side by side
         esoAnd = new BinaryGate("binary-AND"){{
             inputs = new boolean[]{true, false, true};
-            buildVisibility = BuildVisibility.shown;
         }};
 
         esoNot = new BinaryGate("binary-NOT"){
             {
                 inputs = new boolean[]{false, true, false};
-                buildVisibility = BuildVisibility.shown;
             }
 
             @Override

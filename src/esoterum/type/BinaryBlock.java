@@ -6,6 +6,7 @@ import arc.graphics.g2d.*;
 import esoterum.interfaces.*;
 import mindustry.gen.*;
 import mindustry.world.*;
+import mindustry.world.meta.*;
 
 public class BinaryBlock extends Block {
     public TextureRegion connectionRegion;
@@ -19,10 +20,11 @@ public class BinaryBlock extends Block {
         destructible = true;
         drawDisabled = false;
         drawConnection = true;
+        buildVisibility = BuildVisibility.shown;
     }
 
     @Override
-    public void load() {
+    public void load(){
         super.load();
         region = Core.atlas.find("eso-binary-base");
         connectionRegion = Core.atlas.find("eso-connection");
@@ -32,10 +34,9 @@ public class BinaryBlock extends Block {
     public class BinaryBuild extends Building implements Binaryc {
         public boolean lastSignal;
         public boolean nextSignal;
-        public Building frontBuild = null;
 
         @Override
-        public void draw() {
+        public void draw(){
             Draw.rect(region, x, y);
             Draw.color(Color.white, Color.green, lastSignal ? 1f : 0f);
             Draw.rect(topRegion, x, y, rotation * 90f);
@@ -49,12 +50,15 @@ public class BinaryBlock extends Block {
         public boolean sLeft(){
             return canSignal(this, left()) && ((BinaryBuild) left()).lastSignal;
         }
+
         public boolean sRight(){
             return canSignal(this, right()) && ((BinaryBuild) right()).lastSignal;
         }
+
         public boolean sBack(){
             return canSignal(this, back()) && ((BinaryBuild) back()).lastSignal;
         }
+
         public boolean sFront(){
             return canSignal(this, front()) && ((BinaryBuild) front()).lastSignal;
         }

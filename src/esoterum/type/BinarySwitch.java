@@ -13,7 +13,7 @@ public class BinarySwitch extends BinaryBlock {
 
     public class BinarySwitchBuild extends BinaryBuild {
         @Override
-        public boolean configTapped() {
+        public boolean configTapped(){
             lastSignal = !lastSignal;
             Log.info(lastSignal);
             Sounds.click.at(this);
