@@ -44,7 +44,7 @@ public class BinaryBlock extends Block {
                 Draw.rect(connectionRegion, x, y, relativeTo(b) * 90);
             }
             Draw.color(Color.white, Color.green, lastSignal ? 1f : 0f);
-            Draw.rect(topRegion, x, y, rotation * 90f);
+            Draw.rect(topRegion, x, y, rotdeg());
         }
 
         public boolean sLeft(){
