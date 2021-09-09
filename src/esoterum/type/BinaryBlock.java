@@ -3,11 +3,9 @@ package esoterum.type;
 import arc.Core;
 import arc.graphics.*;
 import arc.graphics.g2d.*;
-import arc.struct.Seq;
 import esoterum.interfaces.*;
 import mindustry.gen.*;
 import mindustry.world.*;
-import mindustry.world.blocks.*;
 
 public class BinaryBlock extends Block {
     public TextureRegion connectionRegion;
@@ -41,10 +39,11 @@ public class BinaryBlock extends Block {
             Draw.rect(region, x, y);
             Draw.color(Color.white, Color.green, lastSignal ? 1f : 0f);
             Draw.rect(topRegion, x, y, rotation * 90f);
-            for(int i = 0; i < 4; i++){
-                Draw.color(Color.white, Color.green, sNearby(i) ? 1f : 0f);
-                Draw.rect(connectionRegion, x, y, rotation * 90f + i * 90f);
-           }
+            if(drawConnection) for (Building b : new Building[]{back(), left(), right(), front()}) {
+                if(b == null || !(b.block instanceof BinaryBlock) || b.team != team )continue;
+                Draw.color(Color.white, Color.green, (b == front() && lastSignal) || ((BinaryBuild) b).lastSignal ? 1f : 0f);
+                Draw.rect(connectionRegion, x, y, relativeTo(b) * 90);
+            }
         }
 
         public boolean sLeft(){

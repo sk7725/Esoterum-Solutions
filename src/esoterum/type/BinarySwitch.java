@@ -8,7 +8,7 @@ public class BinarySwitch extends BinaryBlock {
         super(name);
         configurable = true;
         autoResetEnabled = false;
-
+        targetable = false;
     }
 
     public class BinarySwitchBuild extends BinaryBuild {
@@ -17,7 +17,7 @@ public class BinarySwitch extends BinaryBlock {
             lastSignal = !lastSignal;
             Log.info(lastSignal);
             Sounds.click.at(this);
-            return true;
+            return false;
         }
     }
 }
