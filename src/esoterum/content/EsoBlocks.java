@@ -8,7 +8,7 @@ import mindustry.world.meta.*;
 
 public class EsoBlocks implements ContentList {
     public static Block
-        esoBlock, esoButton, esoWire, esoAnd, esoNot;
+        esoBlock, esoButton, esoWire, esoAnd, esoNot, esoXor;
 
     public void load(){
         esoBlock = new BinaryBlock("test-binary-block"){{
@@ -27,9 +27,7 @@ public class EsoBlocks implements ContentList {
 
         // LOGIC GATES
         // Skipping OR because they're basically just two wires side by side
-        esoAnd = new BinaryGate("binary-AND"){{
-            inputs = new boolean[]{true, false, true};
-        }};
+        esoAnd = new BinaryGate("binary-AND");
 
         esoNot = new BinaryGate("binary-NOT"){
             {
@@ -37,8 +35,15 @@ public class EsoBlocks implements ContentList {
             }
 
             @Override
-            public boolean operation(boolean[] in) {
+            public boolean operation(boolean[] in){
                 return !in[1];
+            }
+        };
+
+        esoXor = new BinaryGate("binary-XOR"){
+            @Override
+            public boolean operation(boolean[] in){
+                return in[0] ^ in[2];
             }
         };
     }

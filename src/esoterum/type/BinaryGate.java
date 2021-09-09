@@ -6,7 +6,7 @@ import mindustry.gen.Building;
 
 public class BinaryGate extends BinaryAcceptor {
     // left, back, right
-    public boolean[] inputs = {false, false, false};
+    public boolean[] inputs = {true, false, true};
     public BinaryGate(String name){
         super(name);
     }
