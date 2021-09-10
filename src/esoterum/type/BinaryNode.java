@@ -3,8 +3,12 @@ package esoterum.type;
 import arc.graphics.*;
 import arc.graphics.g2d.*;
 import arc.math.*;
-import arc.util.Time;
-import mindustry.gen.Building;
+import arc.math.geom.Point2;
+import arc.util.*;
+import arc.util.io.Reads;
+import arc.util.io.Writes;
+import mindustry.*;
+import mindustry.gen.*;
 import mindustry.graphics.*;
 
 public class BinaryNode extends BinaryAcceptor{
@@ -53,7 +57,6 @@ public class BinaryNode extends BinaryAcceptor{
             }
         }
 
-        // TODO: redo connection checks
         @Override
         public boolean onConfigureTileTapped(Building other) {
             if(other != null && linkValid(other)){
@@ -106,6 +109,41 @@ public class BinaryNode extends BinaryAcceptor{
             return other instanceof BinaryNodeBuild
                     && this != other
                     && Mathf.dst(x, y, other.x, other.y) <= 48f;
+        }
+
+        // Saving is broken
+        @Override
+        public byte version(){
+            return 1;
+        }
+
+        @Override
+        public void read(Reads read, byte revision) {
+            super.read(read, revision);
+
+            if(revision >= 1){
+                int d = read.i();
+                int s = read.i();
+                Log.info(id + " dest read:" + Point2.unpack(d));
+                Log.info(id + " source read:" + Point2.unpack(s));
+                if(d != -1){
+                    dest = (BinaryNodeBuild) Vars.world.build(d);
+                    Log.info("dest " + dest.x + ", " + dest.y);
+                }
+                if(s != -1){
+                    source = (BinaryNodeBuild) Vars.world.build(s);
+                    Log.info("source " + source.x + ", " + source.y);
+                }
+            }
+        }
+
+        @Override
+        public void write(Writes write) {
+            write.bool(lastSignal);
+            write.i(dest == null ? -1 : dest.pos());
+            write.i(source == null ? -1 : source.pos());
+            Log.info(id + "source write: " + (source == null ? -1 : Point2.unpack(source.pos())));
+            Log.info(id + "dest write: " + (dest == null ? -1 : Point2.unpack(dest.pos())));
         }
     }
 }
