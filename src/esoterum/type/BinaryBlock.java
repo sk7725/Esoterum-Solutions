@@ -122,7 +122,7 @@ public class BinaryBlock extends Block {
                 case health -> health;
                 case maxHealth -> maxHealth;
                 case rotation -> rotation;
-                case enabled -> enabled ? 1 : 0;
+                case enabled -> lastSignal ? 1 : 0;
                 case size -> block.size;
                 default -> Float.NaN; //gets converted to null in logic
             };
