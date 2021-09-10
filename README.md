@@ -1,3 +1,5 @@
+**bad code ahead!**
+
 # Esoterum-Solutions
 Small Mindustry Java mod that adds a binary logic system that nobody is going to use.
 
