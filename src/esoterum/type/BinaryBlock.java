@@ -37,12 +37,17 @@ public class BinaryBlock extends Block {
         public boolean nextSignal;
 
         @Override
+        // this hurts me
         public void draw(){
             Draw.rect(region, x, y);
             if(drawConnection) for (Building b : new Building[]{back(), left(), right(), front()}) {
-                if(b == null || !(b.block instanceof BinaryBlock) || b.team != team )continue;
-                Draw.color(Color.white, Color.green, (b == front() && lastSignal) || (((BinaryBuild) b).lastSignal && (b.front() == this || !b.block.rotate)) ? 1f : 0f);
-                Draw.rect(connectionRegion, x, y, relativeTo(b) * 90);
+                if(!(b instanceof BinaryBuild) || b.team != team) continue;
+                if(!b.block.rotate || (b.front() == this || b.back() == this) || front() == b){
+                    if(!(b.back() == this && front() != b)){
+                        Draw.color(Color.white, Color.green, ((BinaryBuild) b).lastSignal ? 1f : 0f);
+                        Draw.rect(connectionRegion, x, y, relativeTo(b) * 90);
+                    }
+                }
             }
             Draw.color(Color.white, Color.green, lastSignal ? 1f : 0f);
             Draw.rect(topRegion, x, y, rotdeg());

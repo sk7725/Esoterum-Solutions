@@ -33,7 +33,7 @@ public class BinaryGate extends BinaryAcceptor {
             Draw.rect(region, x, y);
             for(int i = 0; i < 3; i++){
                 if(!inputs[i])continue;
-                Draw.color(Color.white, Color.green, results[i] ? 1f : 0f);
+                Draw.color(Color.white, Color.green, lastSignal ? 1f : 0f);
                 Draw.rect(connectionRegion, x, y, (90f + 90f * i) + rotdeg() );
             }
             Draw.color(Color.white, Color.green, lastSignal ? 1f : 0f);
