@@ -3,6 +3,7 @@ package esoterum.type;
 import arc.Core;
 import arc.graphics.*;
 import arc.graphics.g2d.*;
+import arc.util.io.*;
 import esoterum.interfaces.*;
 import mindustry.gen.*;
 import mindustry.world.*;
@@ -69,5 +70,21 @@ public class BinaryBlock extends Block {
             return canSignal(this, nearby(side)) && ((BinaryBuild) nearby(side)).lastSignal;
         }
 
+        @Override
+        public byte version(){
+            return 1;
+        }
+
+        @Override
+        public void read(Reads read, byte revision){
+            if(revision == 1){
+                lastSignal = read.bool();
+            }
+        }
+
+        @Override
+        public void write(Writes write){
+            write.bool(lastSignal);
+        }
     }
 }
