@@ -25,7 +25,9 @@ public class EsoBlocks implements ContentList {
 
         esoButton = new BinarySwitch("binary-switch");
 
-        esoNode = new BinaryNode("binary-node");
+        esoNode = new BinaryNode("binary-node"){{
+            buildVisibility = BuildVisibility.hidden;
+        }};
 
         // LOGIC GATES
         // Skipping OR because they're basically just two wires side by side
