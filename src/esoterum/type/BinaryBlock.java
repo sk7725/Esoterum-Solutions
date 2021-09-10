@@ -35,12 +35,13 @@ public class BinaryBlock extends Block {
     public class BinaryBuild extends Building implements Binaryc {
         public boolean lastSignal;
         public boolean nextSignal;
+        public Building[] nb = new Building[]{null, null, null, null};
 
         @Override
         // this hurts me
         public void draw(){
             Draw.rect(region, x, y);
-            if(drawConnection) for (Building b : new Building[]{back(), left(), right(), front()}) {
+            if(drawConnection) for (Building b : nb) {
                 if(!(b instanceof BinaryBuild) || b.team != team) continue;
                 if(!b.block.rotate || (b.front() == this || b.back() == this) || front() == b){
                     if(!(b.back() == this && front() != b)){
@@ -73,6 +74,15 @@ public class BinaryBlock extends Block {
             int side = (rot + rotation) % 4;
             if(nearby(side) == null)return false;
             return canSignal(this, nearby(side)) && ((BinaryBuild) nearby(side)).lastSignal;
+        }
+
+        @Override
+        public void onProximityUpdate() {
+            super.onProximityUpdate();
+            nb[0] = back();
+            nb[1] = left();
+            nb[2] = right();
+            nb[3] = front();
         }
 
         @Override
