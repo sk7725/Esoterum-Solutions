@@ -8,7 +8,7 @@ import mindustry.world.meta.*;
 
 public class EsoBlocks implements ContentList {
     public static Block
-        esoBlock, esoButton, esoNode, esoRouter, esoWire, esoAnd, esoNot, esoXor;
+        esoBlock, esoButton, esoNode, esoJunction, esoRouter, esoWire, esoAnd, esoNot, esoXor;
 
     public void load(){
         esoBlock = new BinaryBlock("test-binary-block"){{
@@ -26,6 +26,8 @@ public class EsoBlocks implements ContentList {
         esoButton = new BinarySwitch("binary-switch");
 
         esoNode = new BinaryNode("binary-node");
+
+        esoJunction = new BinaryJunction("binary-junction");
 
         esoRouter = new BinaryRouter("binary-router");
 

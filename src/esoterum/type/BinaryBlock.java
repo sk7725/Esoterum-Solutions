@@ -5,7 +5,9 @@ import arc.graphics.*;
 import arc.graphics.g2d.*;
 import arc.util.io.*;
 import esoterum.interfaces.*;
+import mindustry.core.*;
 import mindustry.gen.*;
+import mindustry.logic.*;
 import mindustry.world.*;
 import mindustry.world.meta.*;
 
@@ -101,13 +103,29 @@ public class BinaryBlock extends Block {
         @Override
         public void read(Reads read, byte revision){
             if(revision == 1){
-                lastSignal = read.bool();
+                lastSignal = nextSignal = read.bool();
             }
         }
 
         @Override
         public void write(Writes write){
-            write.bool(lastSignal);
+            write.bool(nextSignal);
+        }
+
+        @Override
+        public double sense(LAccess sensor) {
+            return switch(sensor){
+                case x -> World.conv(x);
+                case y -> World.conv(y);
+                case dead -> !isValid() ? 1 : 0;
+                case team -> team.id;
+                case health -> health;
+                case maxHealth -> maxHealth;
+                case rotation -> rotation;
+                case enabled -> enabled ? 1 : 0;
+                case size -> block.size;
+                default -> Float.NaN; //gets converted to null in logic
+            };
         }
     }
 }

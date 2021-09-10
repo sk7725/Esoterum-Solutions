@@ -144,7 +144,7 @@ public class BinaryNode extends BinaryAcceptor{
             super.read(read, revision);
 
             if(revision == 1){
-                lastSignal = read.bool();
+                lastSignal = nextSignal = read.bool();
                 linked = read.bool();
                 accepting = read.bool();
 
@@ -157,7 +157,7 @@ public class BinaryNode extends BinaryAcceptor{
         public void writeAll(Writes write) {
             super.writeAll(write);
 
-            write.bool(lastSignal);
+            write.bool(nextSignal);
             write.bool(linked);
             write.bool(accepting);
 
