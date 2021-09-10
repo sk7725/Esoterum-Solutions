@@ -20,7 +20,8 @@ public class BinarySwitch extends BinaryBlock {
     public class BinarySwitchBuild extends BinaryBuild {
         @Override
         public boolean configTapped(){
-            nextSignal = !nextSignal;
+            enabled = !enabled;
+            nextSignal = enabled;
             lastSignal = nextSignal;
             EsoSounds.beep.at(x, y);
             return false;

@@ -25,7 +25,8 @@ public class BinaryBlock extends Block {
         destructible = true;
         drawDisabled = false;
         drawConnection = true;
-        buildVisibility = BuildVisibility.shown;
+        buildVisibility = BuildVisibility.sandboxOnly;
+        alwaysUnlocked = true;
         category = Category.logic;
         conveyorPlacement = true;
     }
