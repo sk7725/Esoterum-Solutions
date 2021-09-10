@@ -11,13 +11,13 @@ public class BinarySwitch extends BinaryBlock {
         configurable = true;
         autoResetEnabled = false;
         targetable = false;
+        emits = true;
     }
 
     public class BinarySwitchBuild extends BinaryBuild {
         @Override
         public boolean configTapped(){
             lastSignal = !lastSignal;
-            Log.info(lastSignal);
             Sounds.click.at(this);
             return false;
         }

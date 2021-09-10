@@ -8,7 +8,7 @@ import mindustry.world.meta.*;
 
 public class EsoBlocks implements ContentList {
     public static Block
-        esoBlock, esoButton, esoNode, esoWire, esoAnd, esoNot, esoXor;
+        esoBlock, esoButton, esoNode, esoRouter, esoWire, esoAnd, esoNot, esoXor;
 
     public void load(){
         esoBlock = new BinaryBlock("test-binary-block"){{
@@ -26,6 +26,8 @@ public class EsoBlocks implements ContentList {
         esoButton = new BinarySwitch("binary-switch");
 
         esoNode = new BinaryNode("binary-node");
+
+        esoRouter = new BinaryRouter("binary-router");
 
         // LOGIC GATES
         // Skipping OR because they're basically just two wires side by side

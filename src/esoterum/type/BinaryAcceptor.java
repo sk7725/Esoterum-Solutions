@@ -5,6 +5,7 @@ public class BinaryAcceptor extends BinaryBlock {
         super(name);
         rotate = true;
         drawArrow = true;
+        emits = true;
     }
 
     public class BinaryAcceptorBuild extends BinaryBuild {
@@ -16,7 +17,7 @@ public class BinaryAcceptor extends BinaryBlock {
         }
         @Override
         public boolean signal(){
-            return sBack() | sLeft() | sRight();
+            return sBack() | sLeft() | sRight() | signalOverride;
         }
     }
 }

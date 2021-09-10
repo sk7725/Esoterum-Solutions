@@ -13,6 +13,7 @@ public class BinaryBlock extends Block {
     public TextureRegion connectionRegion;
     public TextureRegion topRegion;
     public boolean drawConnection;
+    public boolean emits = false;
 
     public BinaryBlock(String name){
         super(name);
@@ -35,6 +36,9 @@ public class BinaryBlock extends Block {
     public class BinaryBuild extends Building implements Binaryc {
         public boolean lastSignal;
         public boolean nextSignal;
+        // used for overriding signals, will come in useful for junctions and other stuff
+        public boolean signalOverride;
+        // used for drawing
         public Building[] nb = new Building[]{null, null, null, null};
 
         @Override
@@ -44,7 +48,7 @@ public class BinaryBlock extends Block {
             if(drawConnection) for (Building b : nb) {
                 if(!(b instanceof BinaryBuild) || b.team != team) continue;
                 if(!b.block.rotate || (b.front() == this || b.back() == this) || front() == b){
-                    if(!(b.back() == this && front() != b)){
+                    if(!(b.back() == this && front() != b) || !b.block.rotate){
                         Draw.color(Color.white, Color.green, ((BinaryBuild) b).lastSignal ? 1f : 0f);
                         Draw.rect(connectionRegion, x, y, relativeTo(b) * 90);
                     }
@@ -74,6 +78,10 @@ public class BinaryBlock extends Block {
             int side = (rot + rotation) % 4;
             if(nearby(side) == null)return false;
             return canSignal(this, nearby(side)) && ((BinaryBuild) nearby(side)).lastSignal;
+        }
+
+        public boolean emits(){
+            return emits;
         }
 
         @Override
