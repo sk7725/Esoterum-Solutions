@@ -3,6 +3,8 @@ package esoterum.type;
 import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.util.*;
+import arc.util.io.Reads;
+import arc.util.io.Writes;
 import mindustry.gen.*;
 
 public class BinarySwitch extends BinaryBlock {
@@ -17,7 +19,8 @@ public class BinarySwitch extends BinaryBlock {
     public class BinarySwitchBuild extends BinaryBuild {
         @Override
         public boolean configTapped(){
-            lastSignal = !lastSignal;
+            nextSignal = !nextSignal;
+            lastSignal = nextSignal;
             Sounds.click.at(this);
             return false;
         }
@@ -31,5 +34,6 @@ public class BinarySwitch extends BinaryBlock {
             }
             Draw.rect(topRegion, x, y, rotdeg());
         }
+
     }
 }
