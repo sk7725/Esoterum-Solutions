@@ -8,8 +8,10 @@ import arc.util.*;
 import arc.util.io.Reads;
 import arc.util.io.Writes;
 import mindustry.*;
+import mindustry.game.Team;
 import mindustry.gen.*;
 import mindustry.graphics.*;
+import mindustry.world.Tile;
 
 public class BinaryNode extends BinaryAcceptor{
     public BinaryNode(String name){
@@ -20,15 +22,27 @@ public class BinaryNode extends BinaryAcceptor{
     }
 
     public class BinaryNodeBuild extends BinaryAcceptorBuild {
-        public BinaryNodeBuild source = null;
-        public BinaryNodeBuild dest = null;
+        public BinaryNodeBuild link = null;
+        public boolean linked = false;
+        public boolean accepting = false;
+        // why doesn't afterRead() get called ;-;
+        public boolean linkInit = false;
+        public int linkPos = -1;
+
         @Override
         public void updateTile(){
+            // supposed to be in afterRead() but the game doesn't fUCKINg call it
+            // gets the linked node after building initialization
+            if(!linkInit){
+                link = linkPos == -1 ? null : (BinaryNodeBuild) Vars.world.build(linkPos);
+                linkInit = true;
+            }
+
             lastSignal = nextSignal;
-            if(source == null) {
-                nextSignal = signal();
+            if(accepting && link != null) {
+                nextSignal = link.signal();
             }else{
-                nextSignal = source.signal();
+                nextSignal = signal();
             }
         }
 
@@ -40,44 +54,21 @@ public class BinaryNode extends BinaryAcceptor{
         @Override
         public void draw() {
             super.draw();
-            if(source != null) {
+            if(link != null && accepting) {
                 Draw.z(Layer.power);
                 Draw.color(Color.white, Color.green, lastSignal ? 1f : 0f);
                 Lines.stroke(1f);
-                Lines.line(x, y, source.x, source.y);
+                Lines.line(x, y, link.x, link.y);
                 Fill.circle(x, y, 1.5f);
-                Fill.circle(source.x, source.y, 1.5f);
+                Fill.circle(link.x, link.y, 1.5f);
 
                 float time = (Time.time / 60f) % 3f;
                 Fill.circle(
-                        Mathf.lerp(source.x, x, time / 3f),
-                        Mathf.lerp(source.y, y, time / 3f),
+                        Mathf.lerp(link.x, x, time / 3f),
+                        Mathf.lerp(link.y, y, time / 3f),
                         1.5f
                 );
             }
-        }
-
-        @Override
-        public boolean onConfigureTileTapped(Building other) {
-            if(other != null && linkValid(other)){
-                BinaryNodeBuild bOther = (BinaryNodeBuild) other;
-                if(source == bOther){
-                    bOther.dest = null;
-                    source = null;
-                    return true;
-                }
-                if(dest == bOther){
-                    bOther.source = null;
-                    dest = null;
-                    return true;
-                }
-                if(bOther.source == null && bOther.dest == null && source == null && dest == null){
-                    bOther.source = this;
-                    dest = bOther;
-                    return true;
-                }
-            }
-            return other == null;
         }
 
         @Override
@@ -86,23 +77,36 @@ public class BinaryNode extends BinaryAcceptor{
             Draw.z(Layer.overlayUI);
             Lines.stroke(1f);
             Lines.circle(x, y, 5f);
-            if(dest != null)Lines.circle(dest.x, dest.y, 6f);
-            if(source!= null)Lines.circle(source.x, source.y, 6f);
+            if(link != null)Lines.circle(link.x, link.y, 5f);
             Drawf.dashCircle(x, y, 48, Color.white);
             Draw.reset();
         }
 
         @Override
-        public void onRemoved() {
-            // reset source or destination if it exists
-            if(source != null){
-                source.dest = null;
-                source = null;
+        public boolean onConfigureTileTapped(Building other) {
+            if(other != null && linkValid(other)){
+                BinaryNodeBuild bOther = (BinaryNodeBuild) other;
+
+                if(bOther == link){
+                    reset();
+                    return true;
+                }
+                if(linked){
+                    reset();
+                }
+                if(!bOther.linked){
+                    link = bOther;
+                    link.link = this;
+                    link.linked = true;
+                    link.accepting = true;
+                    linked = true;
+                    link.linkPos = pos();
+                    linkPos = link.pos();
+                    return true;
+                }
+                return true;
             }
-            if(dest != null){
-                dest.source = null;
-                dest = null;
-            }
+            return other == null;
         }
 
         public boolean linkValid(Building other){
@@ -111,39 +115,53 @@ public class BinaryNode extends BinaryAcceptor{
                     && Mathf.dst(x, y, other.x, other.y) <= 48f;
         }
 
-        // Saving is broken
+        @Override
+        public void onRemoved() {
+            // reset
+            reset();
+        }
+
+        public void reset() {
+            if(link != null) {
+                link.link = null;
+                link.accepting = false;
+                link.linked = false;
+                link.linkPos = -1;
+            }
+            accepting = false;
+            linked = false;
+            link = null;
+            linkPos = -1;
+        }
+
         @Override
         public byte version(){
             return 1;
         }
 
         @Override
-        public void read(Reads read, byte revision) {
+        public void read(Reads read, byte revision){
             super.read(read, revision);
 
-            if(revision >= 1){
-                int d = read.i();
-                int s = read.i();
-                Log.info(id + " dest read:" + Point2.unpack(d));
-                Log.info(id + " source read:" + Point2.unpack(s));
-                if(d != -1){
-                    dest = (BinaryNodeBuild) Vars.world.build(d);
-                    Log.info("dest " + dest.x + ", " + dest.y);
-                }
-                if(s != -1){
-                    source = (BinaryNodeBuild) Vars.world.build(s);
-                    Log.info("source " + source.x + ", " + source.y);
-                }
+            if(revision == 1){
+                lastSignal = read.bool();
+                linked = read.bool();
+                accepting = read.bool();
+
+                linkPos = read.i();
+                Log.info(Point2.unpack(linkPos));
             }
         }
 
         @Override
-        public void write(Writes write) {
+        public void writeAll(Writes write) {
+            super.writeAll(write);
+
             write.bool(lastSignal);
-            write.i(dest == null ? -1 : dest.pos());
-            write.i(source == null ? -1 : source.pos());
-            Log.info(id + "source write: " + (source == null ? -1 : Point2.unpack(source.pos())));
-            Log.info(id + "dest write: " + (dest == null ? -1 : Point2.unpack(dest.pos())));
+            write.bool(linked);
+            write.bool(accepting);
+
+            write.i(linkPos);
         }
     }
 }
