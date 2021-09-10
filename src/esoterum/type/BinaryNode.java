@@ -1,12 +1,12 @@
 package esoterum.type;
 
+import arc.Core;
 import arc.graphics.*;
 import arc.graphics.g2d.*;
 import arc.math.*;
 import arc.math.geom.Point2;
 import arc.util.*;
-import arc.util.io.Reads;
-import arc.util.io.Writes;
+import arc.util.io.*;
 import mindustry.*;
 import mindustry.game.Team;
 import mindustry.gen.*;
@@ -19,6 +19,12 @@ public class BinaryNode extends BinaryAcceptor{
         rotate = false;
         configurable = true;
         drawConnection = false;
+    }
+
+    @Override
+    public void load() {
+        super.load();
+        region = Core.atlas.find("eso-binary-node-base");
     }
 
     public class BinaryNodeBuild extends BinaryAcceptorBuild {

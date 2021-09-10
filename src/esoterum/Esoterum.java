@@ -1,8 +1,10 @@
 package esoterum;
 
+import arc.*;
 import arc.util.*;
-import esoterum.content.EsoBlocks;
+import esoterum.content.*;
 import mindustry.ctype.ContentList;
+import mindustry.game.EventType.FileTreeInitEvent;
 import mindustry.mod.*;
 
 public class Esoterum extends Mod{
@@ -11,6 +13,7 @@ public class Esoterum extends Mod{
     };
     public Esoterum(){
         Log.info("Hi");
+        Events.on(FileTreeInitEvent.class, h -> EsoSounds.load());
     }
 
     @Override

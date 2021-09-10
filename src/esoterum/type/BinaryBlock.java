@@ -8,6 +8,7 @@ import esoterum.interfaces.*;
 import mindustry.core.*;
 import mindustry.gen.*;
 import mindustry.logic.*;
+import mindustry.type.*;
 import mindustry.world.*;
 import mindustry.world.meta.*;
 
@@ -25,6 +26,8 @@ public class BinaryBlock extends Block {
         drawDisabled = false;
         drawConnection = true;
         buildVisibility = BuildVisibility.shown;
+        category = Category.logic;
+        conveyorPlacement = true;
     }
 
     @Override
@@ -47,16 +50,15 @@ public class BinaryBlock extends Block {
         // this hurts me
         public void draw(){
             Draw.rect(region, x, y);
+            Draw.color(Color.white, Color.green, lastSignal ? 1f : 0f);
             if(drawConnection) for (Building b : nb) {
                 if(!(b instanceof BinaryBuild) || b.team != team) continue;
                 if(!b.block.rotate || (b.front() == this || b.back() == this) || front() == b){
                     if(!(b.back() == this && front() != b) || !b.block.rotate){
-                        Draw.color(Color.white, Color.green, ((BinaryBuild) b).lastSignal ? 1f : 0f);
                         Draw.rect(connectionRegion, x, y, relativeTo(b) * 90);
                     }
                 }
             }
-            Draw.color(Color.white, Color.green, lastSignal ? 1f : 0f);
             Draw.rect(topRegion, x, y, rotdeg());
         }
 

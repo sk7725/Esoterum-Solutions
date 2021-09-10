@@ -5,6 +5,7 @@ import arc.graphics.g2d.Draw;
 import arc.util.*;
 import arc.util.io.Reads;
 import arc.util.io.Writes;
+import esoterum.content.EsoSounds;
 import mindustry.gen.*;
 
 public class BinarySwitch extends BinaryBlock {
@@ -21,7 +22,7 @@ public class BinarySwitch extends BinaryBlock {
         public boolean configTapped(){
             nextSignal = !nextSignal;
             lastSignal = nextSignal;
-            Sounds.click.at(this);
+            EsoSounds.beep.at(x, y);
             return false;
         }
 
