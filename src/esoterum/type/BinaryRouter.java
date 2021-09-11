@@ -24,5 +24,14 @@ public class BinaryRouter extends BinaryAcceptor{
         public boolean signal() {
             return getSignal(nb[0]) | getSignal(nb[1]) | getSignal(nb[2]) | getSignal(nb[3]);
         }
+
+        @Override
+        public boolean getSignal(BinaryBlock.BinaryBuild to, BinaryBlock.BinaryBuild from){
+            if(from instanceof BinaryNode.BinaryNodeBuild){
+                if(((BinaryNode.BinaryNodeBuild) from).link == null) return super.getSignal(to, from);
+            } else return super.getSignal(to, from);
+
+            return false;
+        }
     }
 }

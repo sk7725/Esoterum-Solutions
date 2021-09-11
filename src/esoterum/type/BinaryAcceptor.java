@@ -35,8 +35,6 @@ public class BinaryAcceptor extends BinaryBlock {
         // IT'S FUCKING INSTANT
         // IT'S NOT SUPPOSED TO BE BUT I'LL TAKE IT
         @Override
-        public boolean signalFront() {
-            return signal();
-        }
+        public boolean signalFront() {return signal();}
     }
 }

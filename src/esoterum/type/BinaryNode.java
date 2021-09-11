@@ -117,6 +117,7 @@ public class BinaryNode extends BinaryAcceptor{
 
         public boolean linkValid(Building other){
             return other instanceof BinaryNodeBuild
+                    && other.team == team
                     && this != other
                     && Mathf.dst(x, y, other.x, other.y) <= range;
         }
@@ -143,6 +144,15 @@ public class BinaryNode extends BinaryAcceptor{
         @Override
         public byte version(){
             return 1;
+        }
+
+        @Override
+        public boolean getSignal(BinaryBlock.BinaryBuild to, BinaryBlock.BinaryBuild from){
+            if(from instanceof BinaryNode.BinaryNodeBuild){
+                if(((BinaryNode.BinaryNodeBuild) from).link != null) return super.getSignal(to, from);
+            } else return super.getSignal(to, from);
+
+            return false;
         }
 
         @Override
