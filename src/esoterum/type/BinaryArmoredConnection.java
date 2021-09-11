@@ -3,6 +3,7 @@ package esoterum.type;
 import arc.Core;
 import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
+import arc.graphics.g2d.TextureRegion;
 import esoterum.content.EsoVars;
 
 public class BinaryArmoredConnection extends BinaryAcceptor{
@@ -16,7 +17,7 @@ public class BinaryArmoredConnection extends BinaryAcceptor{
     @Override
     public void load() {
         super.load();
-        connectionRegion = Core.atlas.find("eso-armored-connection");
+        connectionRegion = Core.atlas.find("eso-not-connections");
     }
 
     public class BinaryArmoredConnectionBuild extends BinaryAcceptor.BinaryAcceptorBuild{
@@ -27,6 +28,7 @@ public class BinaryArmoredConnection extends BinaryAcceptor{
             Draw.rect(region, x, y);
             Draw.color(Color.white, EsoVars.connectionColor, lastSignal ? 1f : 0f);
             Draw.rect(connectionRegion, x, y, rotdeg());
+            Draw.rect(topRegion, x, y, rotdeg());
         }
 
         @Override
