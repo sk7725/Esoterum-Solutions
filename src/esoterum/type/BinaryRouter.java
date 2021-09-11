@@ -1,7 +1,9 @@
 package esoterum.type;
 
 import arc.Core;
+import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
+import esoterum.content.EsoVars;
 
 public class BinaryRouter extends BinaryAcceptor{
     public BinaryRouter(String name){
@@ -9,15 +11,22 @@ public class BinaryRouter extends BinaryAcceptor{
         rotate = false;
         emits = true;
         drawConnection = false;
-        connectionRegion = Core.atlas.find("eso-full-connections");
         emitAllDirections = true;
+    }
+
+    @Override
+    public void load() {
+        super.load();
+        connectionRegion = Core.atlas.find("eso-full-connections");
     }
 
     public class BinaryRouterBuild extends BinaryAcceptorBuild {
         @Override
         public void draw() {
-            super.draw();
+            Draw.rect(region, x, y);
+            Draw.color(Color.white, EsoVars.connectionColor, lastSignal ? 1f : 0f);
             Draw.rect(connectionRegion, x, y);
+            Draw.rect(topRegion, x, y);
         }
 
         @Override
