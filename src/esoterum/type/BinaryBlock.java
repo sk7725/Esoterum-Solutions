@@ -7,11 +7,13 @@ import arc.util.io.*;
 import esoterum.content.EsoVars;
 import esoterum.interfaces.*;
 import mindustry.core.*;
+import mindustry.game.Team;
 import mindustry.gen.*;
 import mindustry.logic.*;
 import mindustry.type.*;
 import mindustry.world.*;
 import mindustry.world.blocks.ConstructBlock;
+import mindustry.world.blocks.power.PowerBlock;
 import mindustry.world.meta.*;
 
 public class BinaryBlock extends Block {
@@ -50,6 +52,12 @@ public class BinaryBlock extends Block {
             topRegion,
             Core.atlas.find("eso-full-connections")
         };
+    }
+
+    @Override
+    public boolean canReplace(Block other) {
+        if(other.alwaysReplace) return true;
+        return (other != this || rotate) && other instanceof BinaryBlock && size == other.size;
     }
 
     public class BinaryBuild extends Building implements Binaryc {
