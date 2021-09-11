@@ -91,10 +91,10 @@ public class BinaryBlock extends Block {
         @Override
         public void onProximityUpdate() {
             super.onProximityUpdate();
-            nb[0] = back() == null ? null : back() instanceof ConstructBlock.ConstructBuild ? null : (BinaryBuild) back();
-            nb[1] = left() == null ? null : left() instanceof ConstructBlock.ConstructBuild ? null : (BinaryBuild) left();
-            nb[2] = right() == null ? null : right() instanceof ConstructBlock.ConstructBuild ? null : (BinaryBuild) right();
-            nb[3] = front() == null ? null : front() instanceof ConstructBlock.ConstructBuild ? null : (BinaryBuild) front();
+            nb[0] = validateNearby(back());
+            nb[1] = validateNearby(left());
+            nb[2] = validateNearby(right());
+            nb[3] = validateNearby(front());
         }
 
         @Override

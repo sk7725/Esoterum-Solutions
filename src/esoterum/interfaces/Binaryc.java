@@ -49,4 +49,9 @@ public interface Binaryc {
         if(from == null)return false;
         return from.getSignalRelativeTo(from, to);
     }
+
+    default BinaryBlock.BinaryBuild validateNearby(Building b){
+        if(b instanceof Binaryc) return (BinaryBlock.BinaryBuild) b;
+        return null;
+    }
 }
