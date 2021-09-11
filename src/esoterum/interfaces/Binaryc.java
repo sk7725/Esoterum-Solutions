@@ -23,7 +23,6 @@ public interface Binaryc {
             return from.lastSignal;
         }
         int rot = (from.relativeTo(to) - to.rotation) % 4;
-        Log.info(rot);
         return switch(rot){
             case 0 -> from.signalFront();
             case 1 -> from.signalLeft();

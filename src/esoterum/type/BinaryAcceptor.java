@@ -14,7 +14,6 @@ public class BinaryAcceptor extends BinaryBlock {
 
         @Override
         public void updateTile(){
-            super.updateTile();
             lastSignal = nextSignal;
             nextSignal = signal();
         }
