@@ -14,7 +14,6 @@ public class BinarySwitch extends BinaryBlock {
         super(name);
         configurable = true;
         autoResetEnabled = false;
-        targetable = false;
         emits = true;
         emitAllDirections = true;
     }
