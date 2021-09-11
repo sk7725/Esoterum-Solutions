@@ -35,7 +35,9 @@ public class EsoBlocks implements ContentList {
 
         esoButton = new BinarySwitch("binary-switch");
 
-        esoNode = new BinaryNode("binary-node");
+        esoNode = new BinaryNode("binary-node"){{
+            range = 48f;
+        }};
 
         esoJunction = new BinaryJunction("binary-junction");
 

@@ -11,7 +11,7 @@ author: "Goober"
 main: "esoterum.Esoterum"
 
 #the mod version
-version: 1.0
+version: 1.1
 
 #the minimum game build required to run this mod
 minGameVersion: 129

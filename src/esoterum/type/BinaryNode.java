@@ -12,12 +12,19 @@ import mindustry.gen.*;
 import mindustry.graphics.*;
 
 public class BinaryNode extends BinaryAcceptor{
+    public float range;
     public BinaryNode(String name){
         super(name);
         rotate = false;
         configurable = true;
         drawConnection = false;
         emitAllDirections = true;
+    }
+
+    @Override
+    public void drawPlace(int x, int y, int rotation, boolean valid) {
+        super.drawPlace(x, y, rotation, valid);
+        Drawf.dashCircle(x * 8f, y * 8f, range, Color.white);
     }
 
     public class BinaryNodeBuild extends BinaryAcceptorBuild {
@@ -77,7 +84,7 @@ public class BinaryNode extends BinaryAcceptor{
             Lines.stroke(1f);
             Lines.circle(x, y, 5f);
             if(link != null)Lines.circle(link.x, link.y, 5f);
-            Drawf.dashCircle(x, y, 48, Color.white);
+            Drawf.dashCircle(x, y, range, Color.white);
             Draw.reset();
         }
 
@@ -111,7 +118,7 @@ public class BinaryNode extends BinaryAcceptor{
         public boolean linkValid(Building other){
             return other instanceof BinaryNodeBuild
                     && this != other
-                    && Mathf.dst(x, y, other.x, other.y) <= 48f;
+                    && Mathf.dst(x, y, other.x, other.y) <= range;
         }
 
         @Override
