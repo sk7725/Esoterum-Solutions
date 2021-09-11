@@ -9,7 +9,7 @@ import mindustry.world.meta.*;
 
 public class EsoBlocks implements ContentList {
     public static Block
-        esoBlock, esoButton, esoClock, esoNode, esoJunction, esoRouter, esoWire, esoArmoredWire, esoAnd, esoNot, esoXor, esoLed;
+        esoBlock, esoButton, esoClock, esoNode, esoJunction, esoRouter, esoWire, esoBuffer, esoAnd, esoNot, esoXor, esoLed;
 
     public void load(){
         esoBlock = new BinaryBlock("test-binary-block"){{
@@ -32,8 +32,6 @@ public class EsoBlocks implements ContentList {
                 };
             }
         };
-
-        esoArmoredWire = new BinaryArmoredConnection("binary-armored-wire");
 
         esoClock = new BinaryClock("binary-clock");
 
@@ -67,6 +65,27 @@ public class EsoBlocks implements ContentList {
                     region,
                     topRegion,
                     Core.atlas.find("eso-not-connections")
+                };
+            }
+        };
+
+        esoBuffer = new BinaryGate("binary-buffer"){
+            {
+                inputs = new boolean[]{false, true, false};
+            }
+
+            //Non't - Farmer Thanos
+            @Override
+            public boolean operation(boolean[] in){
+                return !!in[1];
+            }
+
+            @Override
+            protected TextureRegion[] icons() {
+                return new TextureRegion[]{
+                        region,
+                        topRegion,
+                        Core.atlas.find("eso-not-connections")
                 };
             }
         };
