@@ -1,11 +1,9 @@
 package esoterum.type;
 
 import arc.Core;
-import arc.graphics.Color;
-import arc.graphics.g2d.Draw;
-import arc.graphics.g2d.TextureRegion;
+import arc.graphics.*;
+import arc.graphics.g2d.*;
 import esoterum.content.EsoVars;
-import mindustry.gen.Building;
 
 public class BinaryGate extends BinaryAcceptor {
     // left, back, right

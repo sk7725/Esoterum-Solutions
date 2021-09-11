@@ -22,7 +22,7 @@ public interface Binaryc {
         if(!from.block.rotate && from.emitAllDirections()){
             return from.lastSignal;
         }
-        int rot = (from.relativeTo(to) - to.rotation) % 4;
+        int rot = (from.relativeTo(to) - from.rotation) % 4;
         return switch(rot){
             case 0 -> from.signalFront();
             case 1 -> from.signalLeft();
