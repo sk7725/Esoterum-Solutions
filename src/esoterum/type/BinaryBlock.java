@@ -116,18 +116,8 @@ public class BinaryBlock extends Block {
 
         @Override
         public double sense(LAccess sensor) {
-            return switch(sensor){
-                case x -> World.conv(x);
-                case y -> World.conv(y);
-                case dead -> !isValid() ? 1 : 0;
-                case team -> team.id;
-                case health -> health;
-                case maxHealth -> maxHealth;
-                case rotation -> rotation;
-                case enabled -> lastSignal ? 1 : 0;
-                case size -> block.size;
-                default -> Float.NaN; //gets converted to null in logic
-            };
+            if(sensor == LAccess.enabled) return signal() ? 1 : 0;
+            return super.sense(sensor);
         }
     }
 }
