@@ -31,8 +31,6 @@ public class BinaryLed extends BinaryAcceptor {
             super.updateTile();
             lastSignal = nextSignal;
             nextSignal = signal();
-            signalOverride = false;
-            // sBack() | sLeft() | sRight()
         }
 
         @Override
@@ -47,9 +45,9 @@ public class BinaryLed extends BinaryAcceptor {
                 if(!inputs[i])continue;
                 new Color(0, 0, 0, 1);
                 Color inputColor = switch (i) {
-                    case 0 -> new Color(sLeft() ? 1 : 0, 0, 0);
-                    case 1 -> new Color(0, sBack() ? 1 : 0, 0);
-                    case 2 -> new Color(0, 0, sRight() ? 1 : 0);
+                    case 0 -> new Color(getSignal(nb[1]) ? 1 : 0, 0, 0);
+                    case 1 -> new Color(0, getSignal(nb[0]) ? 1 : 0, 0);
+                    case 2 -> new Color(0, 0, getSignal(nb[2]) ? 1 : 0);
                     default -> new Color(1, 1, 1);
                 };
                 Draw.color(inputColor);
@@ -60,9 +58,9 @@ public class BinaryLed extends BinaryAcceptor {
         }
 
         public Color getColor(){
-            int r = sLeft() ? 1 : 0;
-            int g = sBack() ? 1 : 0;
-            int b = sRight() ? 1 : 0;
+            int r = getSignal(nb[1]) ? 1 : 0;
+            int g = getSignal(nb[0]) ? 1 : 0;
+            int b = getSignal(nb[2]) ? 1 : 0;
             return new Color(r, g, b, 1);
         }
 

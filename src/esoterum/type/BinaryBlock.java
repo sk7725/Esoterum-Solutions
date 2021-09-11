@@ -11,6 +11,7 @@ import mindustry.gen.*;
 import mindustry.logic.*;
 import mindustry.type.*;
 import mindustry.world.*;
+import mindustry.world.blocks.ConstructBlock;
 import mindustry.world.meta.*;
 
 public class BinaryBlock extends Block {
@@ -18,6 +19,7 @@ public class BinaryBlock extends Block {
     public TextureRegion topRegion;
     public boolean drawConnection;
     public boolean emits = false;
+    public boolean emitAllDirections = false;
 
     public BinaryBlock(String name){
         super(name);
@@ -30,6 +32,7 @@ public class BinaryBlock extends Block {
         alwaysUnlocked = true;
         category = Category.logic;
         conveyorPlacement = true;
+        emitAllDirections = false;
     }
 
     @Override
@@ -55,15 +58,15 @@ public class BinaryBlock extends Block {
         // used for overriding signals, will come in useful for junctions and other stuff
         public boolean signalOverride;
         // used for drawing
-        public Building[] nb = new Building[]{null, null, null, null};
+        public BinaryBuild[] nb = new BinaryBuild[]{null, null, null, null};
 
         @Override
         // this hurts me
         public void draw(){
             Draw.rect(region, x, y);
             Draw.color(Color.white, EsoVars.connectionColor, lastSignal ? 1f : 0f);
-            if(drawConnection) for (Building b : nb) {
-                if(!(b instanceof BinaryBuild) || b.team != team) continue;
+            if(drawConnection) for (BinaryBuild b : nb) {
+                if(b == null || b.team != team) continue;
                 if(!b.block.rotate || (b.front() == this || b.back() == this) || front() == b){
                     if(!(b.back() == this && front() != b) || !b.block.rotate){
                         Draw.rect(connectionRegion, x, y, relativeTo(b) * 90);
@@ -73,39 +76,25 @@ public class BinaryBlock extends Block {
             Draw.rect(topRegion, x, y, rotdeg());
         }
 
-        public boolean sLeft(){
-            return canSignal(this, left()) && ((BinaryBuild) left()).lastSignal;
-        }
-
-        public boolean sRight(){
-            return canSignal(this, right()) && ((BinaryBuild) right()).lastSignal;
-        }
-
-        public boolean sBack(){
-            return canSignal(this, back()) && ((BinaryBuild) back()).lastSignal;
-        }
-
-        public boolean sFront(){
-            return canSignal(this, front()) && ((BinaryBuild) front()).lastSignal;
-        }
-
-        public boolean sNearby(int rot){
-            int side = (rot + rotation) % 4;
-            if(nearby(side) == null)return false;
-            return canSignal(this, nearby(side)) && ((BinaryBuild) nearby(side)).lastSignal;
+        public boolean getSignal(BinaryBuild b){
+            return getSignal(this, b);
         }
 
         public boolean emits(){
             return emits;
         }
 
+        public boolean emitAllDirections(){
+            return emitAllDirections;
+        }
+
         @Override
         public void onProximityUpdate() {
             super.onProximityUpdate();
-            nb[0] = back();
-            nb[1] = left();
-            nb[2] = right();
-            nb[3] = front();
+            nb[0] = back() == null ? null : back() instanceof ConstructBlock.ConstructBuild ? null : (BinaryBuild) back();
+            nb[1] = left() == null ? null : left() instanceof ConstructBlock.ConstructBuild ? null : (BinaryBuild) left();
+            nb[2] = right() == null ? null : right() instanceof ConstructBlock.ConstructBuild ? null : (BinaryBuild) right();
+            nb[3] = front() == null ? null : front() instanceof ConstructBlock.ConstructBuild ? null : (BinaryBuild) front();
         }
 
         @Override

@@ -34,9 +34,9 @@ public class BinaryGate extends BinaryAcceptor {
 
         @Override
         public boolean signal(){
-            results[0] = sLeft();
-            results[1] = sBack();
-            results[2] = sRight();
+            results[0] = getSignal(nb[1]);
+            results[1] = getSignal(nb[0]);
+            results[2] = getSignal(nb[2]);
             return operation(results);
         }
 

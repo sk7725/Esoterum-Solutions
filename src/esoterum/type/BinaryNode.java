@@ -17,6 +17,7 @@ public class BinaryNode extends BinaryAcceptor{
         rotate = false;
         configurable = true;
         drawConnection = false;
+        emitAllDirections = true;
     }
 
     public class BinaryNodeBuild extends BinaryAcceptorBuild {
@@ -46,7 +47,7 @@ public class BinaryNode extends BinaryAcceptor{
 
         @Override
         public boolean signal(){
-            return sBack() | sLeft() | sRight() | sFront();
+            return getSignal(nb[0]) | getSignal(nb[1]) | getSignal(nb[2]) | getSignal(nb[3]);
         }
 
         @Override

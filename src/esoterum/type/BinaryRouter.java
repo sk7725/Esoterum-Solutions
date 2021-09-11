@@ -10,6 +10,7 @@ public class BinaryRouter extends BinaryAcceptor{
         emits = true;
         drawConnection = false;
         connectionRegion = Core.atlas.find("eso-full-connections");
+        emitAllDirections = true;
     }
 
     public class BinaryRouterBuild extends BinaryAcceptorBuild {
@@ -21,7 +22,7 @@ public class BinaryRouter extends BinaryAcceptor{
 
         @Override
         public boolean signal() {
-            return super.signal() | sFront();
+            return getSignal(nb[0]) | getSignal(nb[1]) | getSignal(nb[2]) | getSignal(nb[3]);
         }
     }
 }

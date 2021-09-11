@@ -16,6 +16,7 @@ public class BinarySwitch extends BinaryBlock {
         autoResetEnabled = false;
         targetable = false;
         emits = true;
+        emitAllDirections = true;
     }
 
     public class BinarySwitchBuild extends BinaryBuild {
