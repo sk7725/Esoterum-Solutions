@@ -32,9 +32,11 @@ public class BinaryAcceptor extends BinaryBlock {
             return getSignal(nb[0]) | getSignal(nb[1]) | getSignal(nb[2]);
         }
 
+        // IT'S FUCKING INSTANT
+        // IT'S NOT SUPPOSED TO BE BUT I'LL TAKE IT
         @Override
         public boolean signalFront() {
-            return lastSignal;
+            return signal();
         }
     }
 }
