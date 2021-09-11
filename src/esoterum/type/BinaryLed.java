@@ -4,6 +4,7 @@ import arc.Core;
 import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.TextureRegion;
+import arc.util.*;
 import mindustry.graphics.*;
 
 public class BinaryLed extends BinaryAcceptor {
@@ -11,8 +12,9 @@ public class BinaryLed extends BinaryAcceptor {
     public BinaryLed(String name){
         super(name);
         rotate = true;
-        emits = false;
         drawArrow = false;
+        emits = false;
+        drawConnection = false;
     }
 
     @Override
@@ -41,28 +43,8 @@ public class BinaryLed extends BinaryAcceptor {
         @Override
         public void draw(){
             Draw.rect(region, x, y);
-            for(int i = 0; i < 3; i++){
-                if(!inputs[i])continue;
-                new Color(0, 0, 0, 1);
-                Color inputColor = switch (i) {
-                    case 0 -> new Color(getSignal(nb[1]) ? 1 : 0, 0, 0);
-                    case 1 -> new Color(0, getSignal(nb[0]) ? 1 : 0, 0);
-                    case 2 -> new Color(0, 0, getSignal(nb[2]) ? 1 : 0);
-                    default -> new Color(1, 1, 1);
-                };
-                Draw.color(inputColor);
-                Draw.rect(connectionRegion, x, y, (90f + 90f * i) + rotdeg());
-            }
-            Draw.color(getColor());
+            Draw.color(Tmp.c1.set(getSignal(nb[1]) ? 1f : 0f, getSignal(nb[0]) ? 1f : 0f, getSignal(nb[2]) ? 1f : 0f));
             Draw.rect(topRegion, x, y, rotdeg());
         }
-
-        public Color getColor(){
-            int r = getSignal(nb[1]) ? 1 : 0;
-            int g = getSignal(nb[0]) ? 1 : 0;
-            int b = getSignal(nb[2]) ? 1 : 0;
-            return new Color(r, g, b, 1);
-        }
-
     }
 }
