@@ -11,6 +11,8 @@ import esoterum.interfaces.*;
 import mindustry.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
+import mindustry.world.Build;
+import mindustry.world.Tile;
 
 public class BinaryNode extends BinaryAcceptor{
     public float range;
@@ -58,8 +60,12 @@ public class BinaryNode extends BinaryAcceptor{
         // still doesn't work when the blocks are rotated when copying
         public void getLink(int lPos){
             Point2 pos = Point2.unpack(lPos);
-            Building b = Vars.world.tileBuilding(tile.x + pos.x, tile.y + pos.y).build;
-            if(b instanceof Binaryc)link = (BinaryNodeBuild) b;
+            Tile t = Vars.world.tileBuilding(tile.x + pos.x, tile.y + pos.y);
+
+            Building b = null;
+            if(t != null) b = t.build;
+
+            if(b instanceof BinaryNodeBuild build) link = build;
         }
 
         @Override
