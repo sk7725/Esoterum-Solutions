@@ -1,4 +1,4 @@
-**bad code ahead!**
+[![Discord](https://img.shields.io/discord/886635642312880179?color=7289da&label=Esoterum&logo=discord&logoColor=7289da&style=for-the-badge)](https://discord.gg/tz89KuZyTX)
 
 # Esoterum-Solutions
 Small Mindustry Java mod that adds a binary logic system that nobody is going to use.
