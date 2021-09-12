@@ -38,5 +38,11 @@ public class BinarySwitch extends BinaryBlock {
             Draw.rect(topRegion, x, y, rotdeg());
         }
 
+        @Override
+        public void created() {
+            super.created();
+            rotation(0);
+        }
+
     }
 }

@@ -56,5 +56,11 @@ public class BinaryJunction extends BinaryBlock{
         public boolean signalBack() {
             return getSignal(nb[3]);
         }
+
+        @Override
+        public void created() {
+            super.created();
+            rotation(0);
+        }
     }
 }
