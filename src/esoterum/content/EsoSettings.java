@@ -25,14 +25,14 @@ public class EsoSettings {
         eso.table(Tex.button, a -> {
             a.defaults().size(280f, 60f).left();
             a.button("Binary on color", Icon.pick, Styles.cleart, () -> {
-                colorPicker.show(EsoVars.connectionColor, false, (Color col) -> {
+                colorPicker.show(EsoVars.connectionColor, true, (Color col) -> {
                     Core.settings.put("esoterumsignalcolor", col.toString());
                     EsoVars.connectionColor.set(col);
                 });
             }).growX().marginLeft(4f);
 
             a.row().button("Binary off color", Icon.pick, Styles.cleart, () -> {
-                colorPicker.show(EsoVars.connectionOffColor, false, (Color col) -> {
+                colorPicker.show(EsoVars.connectionOffColor, true, (Color col) -> {
                     Core.settings.put("esoterumnosignalcolor", col.toString());
                     EsoVars.connectionOffColor.set(col);
                 });
