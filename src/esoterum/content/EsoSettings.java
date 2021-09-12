@@ -36,14 +36,14 @@ public class EsoSettings {
                     Core.settings.put("esoterumnosignalcolor", col.toString());
                     EsoVars.connectionOffColor.set(col);
                 });
-            }).growX().marginLeft(4f);;
+            }).growX().marginLeft(4f);
 
             a.row().button("Reset signal color", Icon.refresh, Styles.cleart, () -> {
                 Core.settings.put("esoterumsignalcolor", Pal.accent.toString());
                 Core.settings.put("esoterumnosignalcolor", "ffffff");
                 EsoVars.connectionColor.set(Pal.accent);
                 EsoVars.connectionOffColor.set(Color.white);
-            }).growX().marginLeft(4f);;
+            }).growX().marginLeft(4f);
         });
 
         eso.row().label(() -> "[gray]Esoterum v" + mods.getMod("eso").meta.version);
