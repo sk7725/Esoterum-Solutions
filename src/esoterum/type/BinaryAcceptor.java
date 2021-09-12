@@ -14,8 +14,8 @@ public class BinaryAcceptor extends BinaryBlock {
 
         @Override
         public void updateTile(){
-            lastSignal = nextSignal;
-            nextSignal = getSignal(nb[0]) | signal();
+            lastSignal = nextSignal | getSignal(nb[0]);
+            nextSignal = signal();
         }
 
         @Override
@@ -34,7 +34,7 @@ public class BinaryAcceptor extends BinaryBlock {
 
         @Override
         public boolean signalFront() {
-            return nb[0] != null ? nb[0].rotation == rotation || !nb[0].block.rotate ? getSignal(nb[0]) : lastSignal : lastSignal;
+            return (nb[0] != null ? nb[0].rotation == rotation || !nb[0].block.rotate ? getSignal(nb[0]) : lastSignal : lastSignal) | nextSignal;
         }
     }
 }

@@ -31,6 +31,12 @@ public class BinaryGate extends BinaryAcceptor {
         public boolean[] results = new boolean[]{false, false, false};
 
         @Override
+        public void updateTile() {
+            lastSignal = nextSignal;
+            nextSignal = signal();
+        }
+
+        @Override
         public boolean signal(){
             results[0] = getSignal(nb[1]);
             results[1] = getSignal(nb[0]);
@@ -49,6 +55,11 @@ public class BinaryGate extends BinaryAcceptor {
             Draw.color(Color.white, EsoVars.connectionColor, lastSignal ? 1f : 0f);
             Draw.rect(topRegion, x, y, rotdeg());
             Draw.rect(connectionRegion, x, y, rotdeg() );
+        }
+
+        @Override
+        public boolean signalFront() {
+            return lastSignal;
         }
     }
 }

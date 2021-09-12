@@ -4,5 +4,5 @@ import arc.graphics.*;
 import mindustry.graphics.*;
 
 public class EsoVars {
-    public static Color connectionColor = Pal.accent;
+    public static Color connectionColor = Pal.accent.cpy();
 }
