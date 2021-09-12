@@ -23,13 +23,11 @@ public class BinaryNode extends BinaryAcceptor{
         drawConnection = false;
         emitAllDirections = true;
 
-        config(Integer[].class, (BinaryNodeBuild tile, Integer[] ints) -> {
-            tile.linkPos = ints[0];
-            tile.accepting = ints[1] != 0;
-            tile.linked = ints[2] != 0;
+        config(Point2[].class, (BinaryNodeBuild tile, Point2[] points) -> {
+            tile.linkPos = points[0].x;
+            tile.accepting = points[0].y != 0;
+            tile.linked = points[1].x != 0;
         });
-
-
     }
 
     @Override
@@ -145,10 +143,12 @@ public class BinaryNode extends BinaryAcceptor{
 
         public void reset() {
             if(link != null) {
-                link.link = null;
-                link.accepting = false;
-                link.linked = false;
-                link.linkPos = -1;
+                try {
+                    link.link = null;
+                    link.accepting = false;
+                    link.linked = false;
+                    link.linkPos = -1;
+                }catch(Exception ignored){} //dafuk
             }
             accepting = false;
             linked = false;
@@ -158,7 +158,7 @@ public class BinaryNode extends BinaryAcceptor{
 
         @Override
         public Object config() {
-            return new Integer[]{linkPos, accepting ? 1 : 0, linked ? 1 : 0};
+            return new Point2[]{new Point2(linkPos, accepting ? 1 : 0), new Point2(linked ? 1 : 0, 0)};
         }
 
         @Override

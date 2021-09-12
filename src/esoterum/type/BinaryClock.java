@@ -6,6 +6,7 @@ import arc.util.io.Reads;
 import arc.util.io.Writes;
 import mindustry.ui.Styles;
 
+//BinaryCock
 public class BinaryClock extends BinarySwitch {
     public BinaryClock(String name){
         super(name);
@@ -52,15 +53,21 @@ public class BinaryClock extends BinarySwitch {
         public void buildConfiguration(Table table) {
             table.setBackground(Styles.black5);
             table.button("-", () -> {
-                if(frequency > 1)frequency--;
+                frequency -= 0.1f;
+                frequency = Math.round(frequency * 10) / 10f;
+
+                if(frequency < 0.1f) frequency = 0.1f;
             }).size(40);
-            table.label(() -> frequency + "hz")
+            table.label(() -> frequency + "hz").labelAlign(Align.center)
                     .growX()
                     .fillX()
                     .center()
                     .size(80, 40);
             table.button("+", () -> {
-                frequency++;
+                frequency += 0.1f;
+                frequency = Math.round(frequency * 10) / 10f;
+
+                if(frequency > 69f) frequency = 69f;
             }).size(40);
         }
 
