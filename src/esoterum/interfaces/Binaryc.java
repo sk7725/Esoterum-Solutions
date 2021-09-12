@@ -9,14 +9,7 @@ public interface Binaryc {
         return false;
     }
 
-    default boolean canSignal(Building to, Building from){
-        return from != null
-                && from.block instanceof BinaryBlock
-                && from.team == to.team
-                && (!from.block.rotate || from.front() == to)
-                && ((BinaryBlock.BinaryBuild)from).emits();
-    }
-
+    // gets the signal output of 'from' to 'to' depending on relative rotation.
     default boolean getSignalRelativeTo(BinaryBlock.BinaryBuild from, BinaryBlock.BinaryBuild to){
         if(!from.emits()) return false;
         if(!from.block.rotate && from.emitAllDirections()){
@@ -32,6 +25,7 @@ public interface Binaryc {
         };
     }
 
+    // directional signal output from the block.
     default boolean signalFront(){
         return false;
     }
@@ -45,11 +39,13 @@ public interface Binaryc {
         return false;
     }
 
+    // retrieves the signal output from a binary block
     default boolean getSignal(BinaryBlock.BinaryBuild to, BinaryBlock.BinaryBuild from){
         if(from == null)return false;
         return from.getSignalRelativeTo(from, to);
     }
 
+    // checks if the building is a binary building
     default BinaryBlock.BinaryBuild validateNearby(Building b){
         if(b instanceof Binaryc) return (BinaryBlock.BinaryBuild) b;
         return null;

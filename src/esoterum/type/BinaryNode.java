@@ -7,6 +7,7 @@ import arc.math.geom.Point2;
 import arc.util.*;
 import arc.util.io.*;
 import esoterum.content.EsoVars;
+import esoterum.interfaces.*;
 import mindustry.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
@@ -19,6 +20,14 @@ public class BinaryNode extends BinaryAcceptor{
         configurable = true;
         drawConnection = false;
         emitAllDirections = true;
+
+        config(Integer[].class, (BinaryNodeBuild tile, Integer[] ints) -> {
+            tile.linkPos = ints[0];
+            tile.accepting = ints[1] != 0;
+            tile.linked = ints[2] != 0;
+        });
+
+
     }
 
     @Override
@@ -31,25 +40,26 @@ public class BinaryNode extends BinaryAcceptor{
         public BinaryNodeBuild link = null;
         public boolean linked = false;
         public boolean accepting = false;
-        // why doesn't afterRead() get called ;-;
-        public boolean linkInit = false;
         public int linkPos = -1;
 
         @Override
         public void updateTile(){
-            // supposed to be in afterRead() but the game doesn't fUCKINg call it
-            // gets the linked node after building initialization
-            if(!linkInit){
-                link = linkPos == -1 ? null : (BinaryNodeBuild) Vars.world.build(linkPos);
-                linkInit = true;
-            }
-
+            getLink(linkPos);
+            linked = link != null;
             lastSignal = nextSignal;
             if(accepting && link != null) {
                 nextSignal = link.signal();
             }else{
                 nextSignal = signal();
             }
+        }
+
+        // gets the linked block
+        // still doesn't work when the blocks are rotated when copying
+        public void getLink(int lPos){
+            Point2 pos = Point2.unpack(lPos);
+            Building b = Vars.world.tileBuilding(tile.x + pos.x, tile.y + pos.y).build;
+            if(b instanceof Binaryc)link = (BinaryNodeBuild) b;
         }
 
         @Override
@@ -106,8 +116,8 @@ public class BinaryNode extends BinaryAcceptor{
                     link.linked = true;
                     link.accepting = true;
                     linked = true;
-                    link.linkPos = pos();
-                    linkPos = link.pos();
+                    link.linkPos = Point2.unpack(pos()).sub(link.tile.x, link.tile.y).pack();
+                    linkPos = Point2.unpack(link.pos()).sub(tile.x, tile.y).pack();
                     return true;
                 }
                 return true;
@@ -124,7 +134,6 @@ public class BinaryNode extends BinaryAcceptor{
 
         @Override
         public void onRemoved() {
-            // reset
             reset();
         }
 
@@ -139,6 +148,11 @@ public class BinaryNode extends BinaryAcceptor{
             linked = false;
             link = null;
             linkPos = -1;
+        }
+
+        @Override
+        public Object config() {
+            return new Integer[]{linkPos, accepting ? 1 : 0, linked ? 1 : 0};
         }
 
         @Override
