@@ -23,12 +23,13 @@ public class Esoterum extends Mod{
     @Override
     public void loadContent(){
         Color col = Color.valueOf(Core.settings.getString("esoterumsignalcolor", "ffd37f"));
+        Color col2 = Color.valueOf(Core.settings.getString("esoterumnosignalcolor", "ffffff"));
         EsoVars.connectionColor.set(col);
+        EsoVars.connectionOffColor.set(col2);
 
         Log.info("Loading esoterum.");
         for(ContentList list : content){
             list.load();
         }
     }
-
 }

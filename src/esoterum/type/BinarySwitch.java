@@ -31,7 +31,7 @@ public class BinarySwitch extends BinaryBlock {
         @Override
         public void draw() {
             Draw.rect(region, x, y);
-            Draw.color(Color.white, EsoVars.connectionColor, lastSignal ? 1f : 0f);
+            Draw.color(EsoVars.connectionOffColor, EsoVars.connectionColor, lastSignal ? 1f : 0f);
             if(drawConnection) for (int i = 0; i < 4; i++) {
                 Draw.rect(connectionRegion, x, y, 90 * i);
             }

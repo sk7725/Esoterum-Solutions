@@ -78,7 +78,7 @@ public class BinaryNode extends BinaryAcceptor{
             super.draw();
             if(link != null && accepting) {
                 Draw.z(Layer.power);
-                Draw.color(Color.white, EsoVars.connectionColor, lastSignal ? 1f : 0f);
+                Draw.color(EsoVars.connectionOffColor, EsoVars.connectionColor, lastSignal ? 1f : 0f);
                 Lines.stroke(1f);
                 Lines.line(x, y, link.x, link.y);
                 Fill.circle(x, y, 1.5f);

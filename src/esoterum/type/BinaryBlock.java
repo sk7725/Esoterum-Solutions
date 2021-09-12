@@ -72,7 +72,7 @@ public class BinaryBlock extends Block {
         // this hurts me
         public void draw(){
             Draw.rect(region, x, y);
-            Draw.color(Color.white, EsoVars.connectionColor, lastSignal ? 1f : 0f);
+            Draw.color(EsoVars.connectionOffColor, EsoVars.connectionColor, lastSignal ? 1f : 0f);
             if(drawConnection) for (BinaryBuild b : nb) {
                 if(b == null || b.team != team) continue;
                 if(!b.block.rotate || (b.front() == this || b.back() == this) || front() == b){

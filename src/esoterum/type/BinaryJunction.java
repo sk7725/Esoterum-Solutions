@@ -27,7 +27,7 @@ public class BinaryJunction extends BinaryBlock{
         @Override
         public void draw() {
             Draw.rect(region, x, y);
-            Draw.color(Color.white, EsoVars.connectionColor, lastSignal ? 1f : 0f);
+            Draw.color(EsoVars.connectionOffColor, EsoVars.connectionColor, lastSignal ? 1f : 0f);
             Draw.rect(topRegion, x, y, rotdeg());
         }
 

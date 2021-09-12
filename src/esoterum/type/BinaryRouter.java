@@ -3,6 +3,7 @@ package esoterum.type;
 import arc.Core;
 import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
+import arc.graphics.g2d.Lines;
 import esoterum.content.EsoVars;
 
 public class BinaryRouter extends BinaryAcceptor{
@@ -24,7 +25,7 @@ public class BinaryRouter extends BinaryAcceptor{
         @Override
         public void draw() {
             Draw.rect(region, x, y);
-            Draw.color(Color.white, EsoVars.connectionColor, lastSignal ? 1f : 0f);
+            Draw.color(EsoVars.connectionOffColor, EsoVars.connectionColor, lastSignal ? 1f : 0f);
             Draw.rect(connectionRegion, x, y);
             Draw.rect(topRegion, x, y);
         }

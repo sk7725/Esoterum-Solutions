@@ -22,19 +22,29 @@ public class EsoSettings {
         BaseDialog dialog = new BaseDialog("Esoterum Solutions");
         dialog.addCloseButton();
         eso = new SettingsTable();
-        eso.table(a -> {
-            a.row().button("Binary signal color", () -> {
+        eso.table(Tex.button, a -> {
+            a.defaults().size(280f, 60f).left();
+            a.button("Binary on color", Icon.pick, Styles.cleart, () -> {
                 colorPicker.show(EsoVars.connectionColor, false, (Color col) -> {
                     Core.settings.put("esoterumsignalcolor", col.toString());
                     EsoVars.connectionColor.set(col);
                 });
-            }).growX();
+            }).growX().marginLeft(4f);
 
-            a.row().button("Reset signal color", () -> {
+            a.row().button("Binary off color", Icon.pick, Styles.cleart, () -> {
+                colorPicker.show(EsoVars.connectionOffColor, false, (Color col) -> {
+                    Core.settings.put("esoterumnosignalcolor", col.toString());
+                    EsoVars.connectionOffColor.set(col);
+                });
+            }).growX().marginLeft(4f);;
+
+            a.row().button("Reset signal color", Icon.refresh, Styles.cleart, () -> {
                 Core.settings.put("esoterumsignalcolor", Pal.accent.toString());
+                Core.settings.put("esoterumnosignalcolor", "ffffff");
                 EsoVars.connectionColor.set(Pal.accent);
-            }).growX();
-        }).margin(14).width(240f).pad(6);
+                EsoVars.connectionOffColor.set(Color.white);
+            }).growX().marginLeft(4f);;
+        });
 
         eso.row().label(() -> "[gray]Esoterum v" + mods.getMod("eso").meta.version);
         dialog.cont.center().add(eso);
