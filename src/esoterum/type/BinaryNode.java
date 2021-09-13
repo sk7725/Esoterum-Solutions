@@ -40,7 +40,7 @@ public class BinaryNode extends BinaryAcceptor{
         public BinaryNodeBuild link = null;
         public boolean linked = false;
         public boolean accepting = false;
-        public int linkPos = -1;
+        public int linkPos = 0;
 
         @Override
         public void updateTile(){
@@ -63,7 +63,9 @@ public class BinaryNode extends BinaryAcceptor{
             Building b = null;
             if(t != null) b = t.build;
 
-            if(b instanceof BinaryNodeBuild build) link = build;
+            if(b instanceof BinaryNodeBuild build){
+                if(b != this)link = build;
+            }
         }
 
         @Override
@@ -147,13 +149,13 @@ public class BinaryNode extends BinaryAcceptor{
                     link.link = null;
                     link.accepting = false;
                     link.linked = false;
-                    link.linkPos = -1;
+                    link.linkPos = 0;
                 }catch(Exception ignored){} //dafuk
             }
             accepting = false;
             linked = false;
             link = null;
-            linkPos = -1;
+            linkPos = 0;
         }
 
         @Override
