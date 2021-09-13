@@ -2,7 +2,7 @@
 [![Discord](https://img.shields.io/discord/782583108473978880?color=7289da&label=AVANT%20TEAM&logo=discord&logoColor=7289da&style=for-the-badge)](https://discord.gg/V6ygvgGVqE)
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/Goobrr/Esoterum-Solutions/Java%20CI?style=for-the-badge)](https://github.com/Goobrr/Esoterum-Solutions/actions/workflows/gradle.yml)
 
-# Esoterum-Solutions
+# <img src="https://github.com/Goobrr/Esoterum-Solutions/blob/master/assets/icon.png" width="25" height="25" /> Esoterum-Solutions
 **bad code ahead!**
 
 A small [Mindustry](https://github.com/Anuken/Mindustry) Java mod that adds a wire-based logic system tailored for building circuits.
