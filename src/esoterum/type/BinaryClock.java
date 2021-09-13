@@ -29,6 +29,7 @@ public class BinaryClock extends BinarySwitch {
         @Override
         public void created(){
             resetTimer();
+            rotation(0);
         }
 
         public boolean checkTimer(){
