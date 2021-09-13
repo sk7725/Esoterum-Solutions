@@ -47,12 +47,11 @@ public class BinaryGate extends BinaryAcceptor {
         @Override
         public void draw(){
             Draw.rect(region, x, y);
+            Draw.color(EsoVars.connectionOffColor, EsoVars.connectionColor, lastSignal ? 1f : 0f);
             for(int i = 0; i < 3; i++){
                 if(!inputs[i])continue;
-                Draw.color(EsoVars.connectionOffColor, EsoVars.connectionColor, lastSignal ? 1f : 0f);
                 Draw.rect(connectionRegion, x, y, (90f + 90f * i) + rotdeg() );
             }
-            Draw.color(EsoVars.connectionOffColor, EsoVars.connectionColor, lastSignal ? 1f : 0f);
             Draw.rect(topRegion, x, y, rotdeg());
             Draw.rect(connectionRegion, x, y, rotdeg() );
         }
