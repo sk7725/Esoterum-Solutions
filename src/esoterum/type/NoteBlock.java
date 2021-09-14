@@ -1,6 +1,8 @@
 package esoterum.type;
 
 import arc.audio.*;
+import arc.graphics.*;
+import arc.math.geom.*;
 import arc.scene.ui.layout.Table;
 import arc.util.*;
 import arc.util.io.Reads;
@@ -14,22 +16,29 @@ public class NoteBlock extends BinaryAcceptor {
         super(name);
         configurable = true;
 
-        config(Integer.class, (NoteBlockBuild b, Integer note) -> {
-            b.note = note;
+        config(Point2[].class, (NoteBlockBuild b, Point2[] ints) -> {
+            b.note = ints[0].x;
+            b.volume = ints[0].y;
+            b.noteOctave = ints[1].x;
+            b.noteSample = ints[1].y;
         });
     }
 
     public class NoteBlockBuild extends BinaryAcceptorBuild {
-        public Sound noteSound = EsoSounds.bell;
-        public String[] notes = new String[]{
-                "C4", "C4#", "D4",
-                "D4#", "E4", "F4",
-                "F4#", "G44", "G4#",
-                "A4", "A4#", "B4",
-                "C5"
-        };
+        public Sound[][] noteSamples = new Sound[][]{EsoSounds.bells};
+
         public int note = 0;
-        public float volume = 1f;
+        public int volume = 10;
+        public int noteSample = 0;
+        public int noteOctave = 2;
+
+        public String[] notes = new String[]{
+                "C%o", "C%o#", "D%o",
+                "D%o#", "E%o", "F%o",
+                "F%o#", "G%o", "G%o#",
+                "A%o", "A%o#", "B%o"
+        };
+
         // i don't know
         public boolean prev;
 
@@ -42,8 +51,15 @@ public class NoteBlock extends BinaryAcceptor {
         }
 
         public void playSound(){
-            noteSound.play(volume, 1f + note / 12f, 0);
+            noteSamples[noteSample][noteOctave].play((float) volume / 10f, 1f + note / 12f, 0);
             Log.info("sound played");
+        }
+
+        @Override
+        public void displayBars(Table table) {
+            super.displayBars(table);
+            table.row();
+            table.labelWrap("Note: " + String.format(notes[note], noteOctave + 2)).color(Color.lightGray);
         }
 
         @Override
@@ -51,22 +67,30 @@ public class NoteBlock extends BinaryAcceptor {
             table.setBackground(Styles.black5);
             table.button("-", () -> {
                 note--;
-                if(note < 0)note = 12;
+                if(note < 0){
+                    note = 11;
+                    noteOctave--;
+                    if(noteOctave < 0)noteOctave = 4;
+                }
             }).size(40);
-            table.label(() -> notes[note]).labelAlign(Align.center)
+            table.label(() -> String.format(notes[note], noteOctave + 2)).labelAlign(Align.center)
                     .growX()
                     .fillX()
                     .center()
                     .size(80, 40);
             table.button("+", () -> {
                 note++;
-                if(note > 12)note = 0;
+                if(note > 11){
+                    note = 0;
+                    noteOctave++;
+                    if(noteOctave > 4)noteOctave = 0;
+                }
             }).size(40);
         }
 
         @Override
         public Object config() {
-            return note;
+            return new Point2[]{new Point2(note, volume), new Point2(noteOctave, noteSample)};
         }
 
         @Override
@@ -87,6 +111,9 @@ public class NoteBlock extends BinaryAcceptor {
 
             if(revision == 1){
                 note = read.i();
+                volume = read.i();
+                noteOctave = read.i();
+                noteSample = read.i();
             }
         }
 
@@ -95,6 +122,9 @@ public class NoteBlock extends BinaryAcceptor {
             super.write(write);
 
             write.i(note);
+            write.i(volume);
+            write.i(noteOctave);
+            write.i(noteSample);
         }
     }
 }

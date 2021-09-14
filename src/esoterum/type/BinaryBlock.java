@@ -1,7 +1,9 @@
 package esoterum.type;
 
 import arc.Core;
+import arc.graphics.Color;
 import arc.graphics.g2d.*;
+import arc.scene.ui.layout.Table;
 import arc.util.io.*;
 import esoterum.content.EsoVars;
 import esoterum.interfaces.*;
@@ -96,6 +98,21 @@ public class BinaryBlock extends Block {
             nb[1] = validateNearby(left());
             nb[2] = validateNearby(right());
             nb[3] = validateNearby(front());
+        }
+
+        @Override
+        public void displayBars(Table table) {
+            super.displayBars(table);
+            table.table(e -> {
+                Runnable rebuild = () -> {
+                    e.clearChildren();
+                    e.row();
+                    e.left();
+                    e.label(() -> "State: " + (lastSignal ? "1" : "0")).color(Color.lightGray);
+                };
+
+                e.update(rebuild);
+            }).left();
         }
 
         @Override

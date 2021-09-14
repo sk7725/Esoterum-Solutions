@@ -20,12 +20,19 @@ public class EsoSounds {
         return sound;
     }
 
-    public static Sound beep, bell = new Sound();
+    public static Sound beep = new Sound();
+    public static Sound[] bells = new Sound[]{null, null, null, null, null};
 
     public static void load() {
         if(Vars.headless) return;
 
         beep = loadSound("beep");
-        bell = loadSound("bellc4");
+        bells = new Sound[]{
+                loadSound("notes/bells/bellc2"),
+                loadSound("notes/bells/bellc3"),
+                loadSound("notes/bells/bellc4"),
+                loadSound("notes/bells/bellc5"),
+                loadSound("notes/bells/bellc6")
+        };
     }
 }
