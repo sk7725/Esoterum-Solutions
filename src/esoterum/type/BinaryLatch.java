@@ -20,6 +20,15 @@ public class BinaryLatch extends BinaryGate{
         latchRegion = Core.atlas.find(name + "-latch");
     }
 
+    @Override
+    protected TextureRegion[] icons() {
+        return new TextureRegion[]{
+                region,
+                topRegion,
+                latchRegion
+        };
+    }
+
     public class BinaryLatchBuild extends BinaryGateBuild{
         public boolean store = false;
 

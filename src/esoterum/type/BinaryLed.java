@@ -19,7 +19,7 @@ public class BinaryLed extends BinaryAcceptor {
         super(name);
         rotate = true;
         drawArrow = false;
-        emits = false;
+        emits = true;
         drawConnection = false;
         configurable = true;
 
@@ -55,7 +55,7 @@ public class BinaryLed extends BinaryAcceptor {
 
         @Override
         public boolean signal(){
-            return false;
+            return getSignal(nb[1]) | getSignal(nb[0]) | getSignal(nb[2]);
         }
 
         @Override
@@ -63,6 +63,11 @@ public class BinaryLed extends BinaryAcceptor {
             Draw.rect(region, x, y);
             Draw.color(new Color(getSignal(nb[1]) ? color.r : 0f, getSignal(nb[0]) ? color.g : 0f, getSignal(nb[2]) ? color.b : 0f));
             Draw.rect(topRegion, x, y, rotdeg());
+        }
+
+        @Override
+        public boolean signalFront() {
+            return nb[0] != null && nb[0].lastSignal;
         }
 
         @Override
