@@ -1,13 +1,17 @@
 package esoterum.type;
 
-import arc.graphics.Color;
-import arc.scene.ui.layout.Table;
+import arc.graphics.*;
+import arc.math.*;
+import arc.scene.*;
+import arc.scene.ui.*;
+import arc.scene.ui.layout.*;
 import arc.util.*;
-import arc.util.io.Reads;
-import arc.util.io.Writes;
-import mindustry.ui.Styles;
+import arc.util.io.*;
+import mindustry.ui.*;
 
 public class DelayGate extends BinaryAcceptor{
+    float minDelay = 0.1f, maxDelay = 60f;
+
     public DelayGate(String name){
         super(name);
         configurable = true;
@@ -51,27 +55,39 @@ public class DelayGate extends BinaryAcceptor{
         @Override
         public void buildConfiguration(Table table) {
             table.setBackground(Styles.black5);
-            table.button("-", () -> {
-                delay -= 0.1f;
-                delay = Math.round(delay * 10) / 10f;
-
-                if (delay < 0.1f) delay = 0.1f;
-            }).size(40);
-            table.label(() -> delay + "s").labelAlign(Align.center)
+            table.table(t -> {
+                t.button("-", () -> {
+                    delay -= 0.1f;
+                    delay = Mathf.clamp(Math.round(delay * 10) / 10f, minDelay, maxDelay);
+                }).size(40);
+                TextField dField = t.field(delay + "s", s -> {
+                    if(!s.isEmpty()){
+                        s = s.replaceAll("[^\\d.]", ""); //God, I love google. I have no idea what the first part even is.
+                        delay = Float.parseFloat(s);
+                        delay = Mathf.clamp(delay, minDelay, maxDelay);
+                    }
+                }).labelAlign(Align.center)
                     .growX()
                     .fillX()
                     .center()
-                    .size(80, 40);
-            table.button("+", () -> {
-                delay += 0.1f;
-                delay = Math.round(delay * 10) / 10f;
-
-                if (delay > 69f) delay = 69f;
-            }).size(40);
+                    .size(80, 40)
+                    .get();
+                dField.update(() -> {
+                    Scene stage = dField.getScene();
+                    if(!(stage != null && stage.getKeyboardFocus() == dField)) dField.setText(delay + "s");
+                });
+                t.button("+", () -> {
+                    delay += 0.1f;
+                    delay = Mathf.clamp(Math.round(delay * 10) / 10f, minDelay, maxDelay);
+                }).size(40);
+            });
             table.row();
-            table.slider(0.1f, 69f, 0.1f, delay, (float newDelay) -> {
+            Slider dSlider = table.slider(minDelay, maxDelay, 0.1f, delay, (float newDelay) -> {
                 delay = Math.round(newDelay * 10) / 10f;
-            }).center().size(160, 40);
+            }).center().size(160, 40).get();
+            dSlider.update(() -> {
+              dSlider.setValue(delay);
+            });
         }
 
         @Override
