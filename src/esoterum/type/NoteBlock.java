@@ -2,12 +2,14 @@ package esoterum.type;
 
 import arc.audio.*;
 import arc.graphics.*;
+import arc.graphics.g2d.Draw;
 import arc.math.geom.*;
 import arc.scene.ui.layout.Table;
 import arc.util.*;
 import arc.util.io.Reads;
 import arc.util.io.Writes;
 import esoterum.content.EsoSounds;
+import esoterum.content.EsoVars;
 import mindustry.graphics.*;
 import mindustry.ui.Styles;
 
@@ -52,7 +54,6 @@ public class NoteBlock extends BinaryAcceptor {
 
         public void playSound(){
             noteSamples[noteSample][noteOctave].play((float) volume / 10f, 1f + note / 12f, 0);
-            Log.info("sound played");
         }
 
         @Override
@@ -98,6 +99,15 @@ public class NoteBlock extends BinaryAcceptor {
             super.drawSelect();
             if(nb[3] != null)Drawf.arrow(x, y, nb[3].x, nb[3].y, 2f, 2f, Pal.accent);
             if(nb[0] != null)Drawf.arrow(nb[0].x, nb[0].y, x, y, 2f, 2f, Pal.accent);
+        }
+
+        @Override
+        public void draw(){
+            Draw.rect(region, x, y);
+            Draw.color(EsoVars.connectionOffColor, EsoVars.connectionColor, lastSignal ? 1f : 0f);
+            Draw.rect(connectionRegion, x, y, rotdeg());
+            Draw.rect(connectionRegion, x, y, rotdeg() - 180);
+            Draw.rect(topRegion, x, y);
         }
 
         @Override

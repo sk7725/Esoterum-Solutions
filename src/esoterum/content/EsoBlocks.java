@@ -13,7 +13,7 @@ public class EsoBlocks implements ContentList {
             esoNode, esoJunction, esoRouter,
             esoWire, esoBuffer, esoAnd,
             esoNot, esoXor, esoLed,
-            esoLatch, esoNoteBlock;
+            esoLatch, esoNoteBlock, esoDelayGate;
 
     public void load(){
         esoBlock = new BinaryBlock("test-binary-block"){{
@@ -106,5 +106,7 @@ public class EsoBlocks implements ContentList {
         esoLatch = new BinaryLatch("binary-latch");
 
         esoNoteBlock = new NoteBlock("binary-note-block");
+
+        esoDelayGate = new DelayGate("binary-delay-gate");
     }
 }
