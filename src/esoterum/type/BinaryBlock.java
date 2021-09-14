@@ -1,19 +1,14 @@
 package esoterum.type;
 
 import arc.Core;
-import arc.graphics.*;
 import arc.graphics.g2d.*;
 import arc.util.io.*;
 import esoterum.content.EsoVars;
 import esoterum.interfaces.*;
-import mindustry.core.*;
-import mindustry.game.Team;
 import mindustry.gen.*;
 import mindustry.logic.*;
 import mindustry.type.*;
 import mindustry.world.*;
-import mindustry.world.blocks.ConstructBlock;
-import mindustry.world.blocks.power.PowerBlock;
 import mindustry.world.meta.*;
 
 public class BinaryBlock extends Block {
@@ -21,7 +16,7 @@ public class BinaryBlock extends Block {
     public TextureRegion topRegion;
     public boolean drawConnection;
     public boolean emits = false;
-    public boolean emitAllDirections = false;
+    public boolean emitAllDirections;
 
     public BinaryBlock(String name){
         super(name);
@@ -63,8 +58,6 @@ public class BinaryBlock extends Block {
     public class BinaryBuild extends Building implements Binaryc {
         public boolean lastSignal;
         public boolean nextSignal;
-        // used for overriding signals, will come in useful for junctions and other stuff
-        public boolean signalOverride;
         // used for drawing
         public BinaryBuild[] nb = new BinaryBuild[]{null, null, null, null};
 

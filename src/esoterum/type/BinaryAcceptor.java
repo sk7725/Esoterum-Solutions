@@ -20,11 +20,7 @@ public class BinaryAcceptor extends BinaryBlock {
 
         @Override
         public void drawSelect() {
-            if(rotate){
-                if(front() != null){
-                    Drawf.arrow(x, y, front().x, front().y, 2f, 2f, Pal.accent);
-                }
-            }
+            if(rotate && nb[3] != null)Drawf.arrow(x, y, nb[3].x, nb[3].y, 2f, 2f, Pal.accent);
         }
 
         @Override
