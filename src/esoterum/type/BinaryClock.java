@@ -3,11 +3,10 @@ package esoterum.type;
 import arc.math.*;
 import arc.scene.*;
 import arc.scene.ui.*;
-import arc.scene.ui.layout.Table;
+import arc.scene.ui.layout.*;
 import arc.util.*;
-import arc.util.io.Reads;
-import arc.util.io.Writes;
-import mindustry.ui.Styles;
+import arc.util.io.*;
+import mindustry.ui.*;
 
 //BinaryCock
 public class BinaryClock extends BinarySwitch {
@@ -45,7 +44,7 @@ public class BinaryClock extends BinarySwitch {
             table.setBackground(Styles.black5);
             table.button("-", () -> {
                 interval -= 0.1f;
-                interval = Math.round(interval * 10) / 10f;
+                interval = Math.round(interval * 10f) / 10f;
 
                 if(interval < 0.1f) interval = 0.1f;
             }).size(40);
@@ -62,11 +61,11 @@ public class BinaryClock extends BinarySwitch {
                 .get();
             iField.update(() -> {
                 Scene stage = iField.getScene();
-                if(!(stage != null && stage.getKeyboardFocus() == iField)) iField.setText(interval + "s");
+                if(!(stage != null && stage.getKeyboardFocus() == iField)) iField.setText(Strings.autoFixed(interval, 2) + "s");
             });
             table.button("+", () -> {
                 interval += 0.1f;
-                interval = Math.round(interval * 10) / 10f;
+                interval = Math.round(interval * 10f) / 10f;
             }).size(40);
         }
 

@@ -78,7 +78,7 @@ public class DelayGate extends BinaryAcceptor{
             table.table(t -> {
                 t.button("-", () -> {
                     delay -= 0.1f;
-                    delay = Mathf.clamp(Math.round(delay * 10) / 10f, minDelay, maxDelay);
+                    delay = Mathf.clamp(Math.round(delay * 10f) / 10f, minDelay, maxDelay);
                 }).size(40);
                 TextField dField = t.field(delay + "s", s -> {
                     if(!s.isEmpty()){
@@ -94,11 +94,11 @@ public class DelayGate extends BinaryAcceptor{
                     .get();
                 dField.update(() -> {
                     Scene stage = dField.getScene();
-                    if(!(stage != null && stage.getKeyboardFocus() == dField)) dField.setText(delay + "s");
+                    if(!(stage != null && stage.getKeyboardFocus() == dField)) dField.setText(Strings.autoFixed(delay, 2) + "s");
                 });
                 t.button("+", () -> {
                     delay += 0.1f;
-                    delay = Mathf.clamp(Math.round(delay * 10) / 10f, minDelay, maxDelay);
+                    delay = Mathf.clamp(Math.round(delay * 10f) / 10f, minDelay, maxDelay);
                 }).size(40);
             });
             table.row();
