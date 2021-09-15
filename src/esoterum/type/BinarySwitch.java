@@ -1,10 +1,13 @@
 package esoterum.type;
 
+import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
+import arc.util.*;
 import arc.util.io.Reads;
 import arc.util.io.Writes;
 import esoterum.content.EsoSounds;
 import esoterum.content.EsoVars;
+import mindustry.gen.*;
 
 public class BinarySwitch extends BinaryBlock {
     public BinarySwitch(String name){
@@ -39,26 +42,6 @@ public class BinarySwitch extends BinaryBlock {
         @Override
         public Object config(){
             return lastSignal;
-        }
-
-        @Override
-        public void write(Writes write){
-            super.write(write);
-            write.bool(lastSignal);
-        }
-
-        @Override
-        public void read(Reads read, byte revision){
-            super.read(read, revision);
-
-            try {
-                lastSignal = read.input.readBoolean();
-            } catch (Exception ignored) {}
-        }
-
-        @Override
-        public byte version(){
-            return 1;
         }
     }
 }

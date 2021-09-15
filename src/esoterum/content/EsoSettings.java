@@ -4,7 +4,6 @@ import arc.*;
 import arc.graphics.*;
 import arc.scene.*;
 import arc.scene.ui.layout.*;
-import arc.util.Align;
 import mindustry.game.EventType;
 import mindustry.gen.*;
 import mindustry.graphics.*;
@@ -24,7 +23,7 @@ public class EsoSettings {
         dialog.addCloseButton();
         eso = new SettingsTable();
         eso.table(Tex.button, a -> {
-            a.defaults().size(280f, 60f).left().align(Align.center);
+            a.defaults().size(280f, 60f).left();
             a.button("Binary on color", Icon.pick, Styles.cleart, () -> {
                 colorPicker.show(EsoVars.connectionColor, true, (Color col) -> {
                     Core.settings.put("esoterumsignalcolor", col.toString());
