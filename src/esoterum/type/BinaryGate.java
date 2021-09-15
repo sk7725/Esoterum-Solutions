@@ -8,6 +8,9 @@ import esoterum.content.EsoVars;
 public class BinaryGate extends BinaryAcceptor {
     // left, back, right
     public boolean[] inputs = {true, false, true};
+    public String variant = null;
+    public TextureRegion variantRegion;
+
     public BinaryGate(String name){
         super(name);
     }
@@ -23,8 +26,15 @@ public class BinaryGate extends BinaryAcceptor {
         return new TextureRegion[]{
             region,
             topRegion,
-            Core.atlas.find("eso-gate-connections")
+            Core.atlas.find("eso-gate-connections"),
+            variant != null ? variantRegion : Core.atlas.find("clear")
         };
+    }
+
+    @Override
+    public void load() {
+        super.load();
+        variantRegion = Core.atlas.find("eso-variant-" + variant);
     }
 
     public class BinaryGateBuild extends BinaryAcceptorBuild {
@@ -34,6 +44,14 @@ public class BinaryGate extends BinaryAcceptor {
         public void updateTile() {
             lastSignal = nextSignal;
             nextSignal = signal();
+        }
+
+        @Override
+        public void drawSelect() {
+            super.drawSelect();
+            if(variant != null){
+                Draw.rect(variantRegion, x, y);
+            }
         }
 
         @Override

@@ -11,7 +11,7 @@ public class EsoBlocks implements ContentList {
     public static Block
             esoBlock, esoButton, esoClock,
             esoNode, esoJunction, esoRouter,
-            esoWire, esoBuffer, esoAnd,
+            esoWire, esoBuffer, esoAnd, esoAndB, esoAndC,
             esoNot, esoXor, esoLed,
             esoLatch, esoNoteBlock, esoDelayGate;
 
@@ -51,7 +51,48 @@ public class EsoBlocks implements ContentList {
 
         // LOGIC GATES
         // Skipping OR because they're basically just two wires side by side
-        esoAnd = new BinaryGate("binary-AND");
+
+        // region AND
+        esoAnd = new BinaryGate("binary-AND"){{
+            variant = "A";
+        }};
+
+        esoAndB = new BinaryGate("binary-AND-B"){
+            {
+                variant = "B";
+                inputs = new boolean[]{false, true, true};
+            }
+
+            @Override
+            public void load() {
+                super.load();
+                topRegion = Core.atlas.find("eso-binary-AND-top");
+            }
+
+            @Override
+            public boolean operation(boolean[] in) {
+                return in[1] && in[2];
+            }
+        };
+
+        esoAndC = new BinaryGate("binary-AND-C"){
+            {
+                variant = "C";
+                inputs = new boolean[]{true, true, false};
+            }
+
+            @Override
+            public void load() {
+                super.load();
+                topRegion = Core.atlas.find("eso-binary-AND-top");
+            }
+
+            @Override
+            public boolean operation(boolean[] in) {
+                return in[1] && in[0];
+            }
+        };
+        // endregion AND
 
         esoNot = new BinaryGate("binary-NOT"){
             {
