@@ -1,5 +1,6 @@
 package esoterum.type;
 
+import arc.math.*;
 import arc.scene.ui.layout.Table;
 import arc.util.*;
 import arc.util.io.Reads;
@@ -15,29 +16,16 @@ public class BinaryClock extends BinarySwitch {
 
     public class BinaryClockBuild extends BinarySwitchBuild {
         public float frequency = 1f;
-        public float tTimer = 0f;
 
         @Override
         public void updateTile(){
             lastSignal = nextSignal;
-            if(checkTimer()){
-                nextSignal = !nextSignal;
-                resetTimer();
-            }
+            nextSignal = Mathf.sin(Time.time * (Mathf.PI2 / (60 / frequency))) >= 0f;
         }
 
         @Override
         public void created(){
-            resetTimer();
             rotation(0);
-        }
-
-        public boolean checkTimer(){
-            return Time.time >= tTimer;
-        }
-
-        public void resetTimer(){
-            tTimer = Time.time + ((60 / frequency) / 2);
         }
 
         @Override
