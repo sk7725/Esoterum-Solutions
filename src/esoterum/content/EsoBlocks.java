@@ -9,7 +9,7 @@ import mindustry.world.meta.*;
 
 public class EsoBlocks implements ContentList {
     public static Block
-            esoBlock, esoButton, esoSwitch, esoClock,
+            esoBlock, esoButton, esoClock,
             esoNode, esoJunction, esoRouter,
             esoWire, esoBuffer, esoAnd, esoAndB, esoAndC,
             esoNot, esoXor, esoLed,
@@ -39,9 +39,7 @@ public class EsoBlocks implements ContentList {
 
         esoClock = new BinaryClock("binary-clock");
 
-        esoButton = new BinaryButton("binary-button");
-
-        esoSwitch = new BinarySwitch("binary-switch");
+        esoButton = new BinarySwitch("binary-switch");
 
         esoNode = new BinaryNode("binary-node"){{
             range = 48f;
