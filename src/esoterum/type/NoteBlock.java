@@ -5,6 +5,7 @@ import arc.graphics.*;
 import arc.graphics.g2d.Draw;
 import arc.math.geom.*;
 import arc.scene.ui.layout.Table;
+import arc.struct.IntSeq;
 import arc.util.*;
 import arc.util.io.Reads;
 import arc.util.io.Writes;
@@ -18,11 +19,11 @@ public class NoteBlock extends BinaryAcceptor {
         super(name);
         configurable = true;
 
-        config(Point2[].class, (NoteBlockBuild b, Point2[] ints) -> {
-            b.note = ints[0].x;
-            b.volume = ints[0].y;
-            b.noteOctave = ints[1].x;
-            b.noteSample = ints[1].y;
+        config(IntSeq.class, (NoteBlockBuild tile, IntSeq ints) -> {
+            tile.note = ints.get(0);
+            tile.volume = ints.get(1);
+            tile.noteOctave = ints.get(2);
+            tile.noteSample = ints.get(3);
         });
     }
 
@@ -100,7 +101,7 @@ public class NoteBlock extends BinaryAcceptor {
 
         @Override
         public Object config() {
-            return new Point2[]{new Point2(note, volume), new Point2(noteOctave, noteSample)};
+            return new IntSeq(new int[]{note, volume, noteOctave, noteSample});
         }
 
         @Override
