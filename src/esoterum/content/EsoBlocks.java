@@ -146,7 +146,7 @@ public class EsoBlocks implements ContentList {
             //Non't - Farmer Thanos
             @Override
             public boolean operation(boolean[] in){
-                return !!in[1];
+                return in[1];
             }
 
             @Override
