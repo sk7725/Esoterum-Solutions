@@ -118,6 +118,7 @@ public class EsoBlocks implements ContentList {
 
         esoNot = new BinaryGate("binary-NOT"){
             {
+                drawSides = false;
                 inputs = new boolean[]{false, true, false};
             }
 
@@ -138,6 +139,7 @@ public class EsoBlocks implements ContentList {
 
         esoBuffer = new BinaryGate("binary-buffer"){
             {
+                drawSides = false;
                 inputs = new boolean[]{false, true, false};
             }
 
@@ -158,6 +160,10 @@ public class EsoBlocks implements ContentList {
         };
 
         esoXor = new BinaryGate("binary-XOR"){
+            {
+                drawSides = false;
+            }
+
             @Override
             public boolean operation(boolean[] in){
                 return in[0] ^ in[2];
