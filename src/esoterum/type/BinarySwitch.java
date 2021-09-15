@@ -46,6 +46,5 @@ public class BinarySwitch extends BinaryBlock {
             super.created();
             rotation(0);
         }
-
     }
 }
