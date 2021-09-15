@@ -43,25 +43,5 @@ public class BinarySwitch extends BinaryBlock {
         public Object config(){
             return lastSignal;
         }
-
-        @Override
-        public void write(Writes write){
-            super.write(write);
-            write.bool(lastSignal);
-        }
-
-        @Override
-        public void read(Reads read, byte revision){
-            super.read(read, revision);
-
-            if(revision >= 1){
-                lastSignal = read.bool();
-            }
-        }
-
-        @Override
-        public byte version(){
-            return 1;
-        }
     }
 }
