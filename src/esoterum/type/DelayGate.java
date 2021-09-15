@@ -1,12 +1,14 @@
 package esoterum.type;
 
 import arc.graphics.*;
+import arc.graphics.g2d.*;
 import arc.math.*;
 import arc.scene.*;
 import arc.scene.ui.*;
 import arc.scene.ui.layout.*;
 import arc.util.*;
 import arc.util.io.*;
+import esoterum.content.*;
 import mindustry.ui.*;
 
 public class DelayGate extends BinaryAcceptor{
@@ -33,6 +35,15 @@ public class DelayGate extends BinaryAcceptor{
 
             lastSignal = delayTimer > delay * 60&& nextSignal;
             nextSignal = signal();
+        }
+
+        @Override
+        public void draw(){
+            Draw.rect(region, x, y);
+            Draw.color(EsoVars.connectionOffColor, EsoVars.connectionColor, lastSignal ? 1f : 0f);
+            Draw.rect(connectionRegion, x, y, rotdeg());
+            Draw.rect(connectionRegion, x, y, rotdeg() - 180);
+            Draw.rect(topRegion, x, y);
         }
 
         @Override
