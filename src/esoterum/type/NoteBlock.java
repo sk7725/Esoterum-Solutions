@@ -76,27 +76,33 @@ public class NoteBlock extends BinaryAcceptor {
         @Override
         public void buildConfiguration(Table table) {
             table.setBackground(Styles.black5);
-            table.button("-", () -> {
-                note--;
-                if(note < 0){
-                    note = 11;
-                    noteOctave--;
-                    if(noteOctave < 0)noteOctave = 4;
-                }
-            }).size(40);
-            table.label(() -> String.format(notes[note], noteOctave + 2)).labelAlign(Align.center)
+            table.table(t -> {
+                t.button("-", () -> {
+                    note--;
+                    if(note < 0){
+                        note = 11;
+                        noteOctave--;
+                        if(noteOctave < 0)noteOctave = 4;
+                    }
+                    playSound();
+                }).size(40);
+                t.label(() -> String.format(notes[note], noteOctave + 2)).labelAlign(Align.center)
                     .growX()
                     .fillX()
                     .center()
                     .size(80, 40);
-            table.button("+", () -> {
-                note++;
-                if(note > 11){
-                    note = 0;
-                    noteOctave++;
-                    if(noteOctave > 4)noteOctave = 0;
-                }
-            }).size(40);
+                t.button("+", () -> {
+                    note++;
+                    if(note > 11){
+                        note = 0;
+                        noteOctave++;
+                        if(noteOctave > 4)noteOctave = 0;
+                    }
+                    playSound();
+                }).size(40);
+            });
+            table.row();
+            table.button("Play", this::playSound).growX();
         }
 
         @Override
