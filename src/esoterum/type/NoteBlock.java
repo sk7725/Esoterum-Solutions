@@ -60,7 +60,16 @@ public class NoteBlock extends BinaryAcceptor {
         public void displayBars(Table table) {
             super.displayBars(table);
             table.row();
-            table.labelWrap("Note: " + String.format(notes[note], noteOctave + 2)).color(Color.lightGray);
+            table.table(e -> {
+                Runnable rebuild = () -> {
+                    e.clearChildren();
+                    e.row();
+                    e.left();
+                    e.labelWrap("Note: " + String.format(notes[note], noteOctave + 2)).color(Color.lightGray);
+                };
+
+                e.update(rebuild);
+            }).left();
         }
 
         @Override

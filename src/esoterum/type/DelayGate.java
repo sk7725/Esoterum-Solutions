@@ -49,7 +49,16 @@ public class DelayGate extends BinaryAcceptor{
         public void displayBars(Table table) {
             super.displayBars(table);
             table.row();
-            table.labelWrap("Delay: " + delay * 60 + " ticks / " + delay + " seconds").color(Color.lightGray);
+            table.table(e -> {
+                Runnable rebuild = () -> {
+                    e.clearChildren();
+                    e.row();
+                    e.left();
+                    e.label(() -> "Delay: " + delay * 60 + " ticks / " + delay + "s").color(Color.lightGray);
+                };
+
+                e.update(rebuild);
+            }).left();
         }
 
         @Override
