@@ -31,7 +31,7 @@ public class BinaryLed extends BinaryAcceptor {
         return new TextureRegion[]{
             region,
             topRegion,
-            Core.atlas.find("eso-gate-connections")
+            Core.atlas.find("eso-full-connections")
         };
     }
 

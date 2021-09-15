@@ -1,5 +1,6 @@
 package esoterum.type;
 
+import arc.graphics.g2d.TextureRegion;
 import arc.math.*;
 import arc.scene.*;
 import arc.scene.ui.*;

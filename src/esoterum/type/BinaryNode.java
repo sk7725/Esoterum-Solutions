@@ -1,5 +1,6 @@
 package esoterum.type;
 
+import arc.Core;
 import arc.graphics.*;
 import arc.graphics.g2d.*;
 import arc.math.*;
@@ -28,6 +29,12 @@ public class BinaryNode extends BinaryAcceptor{
             tile.accepting = points[0].y != 0;
             tile.linked = points[1].x != 0;
         });
+    }
+
+    @Override
+    public void load() {
+        super.load();
+        connectionRegion = Core.atlas.find("eso-full-connections");
     }
 
     @Override
@@ -76,9 +83,12 @@ public class BinaryNode extends BinaryAcceptor{
         @Override
         public void draw() {
             super.draw();
+
+            Draw.color(EsoVars.connectionOffColor, EsoVars.connectionColor, lastSignal ? 1f : 0f);
+            Draw.rect(connectionRegion, x, y);
+
             if(link != null && accepting) {
                 Draw.z(Layer.power);
-                Draw.color(EsoVars.connectionOffColor, EsoVars.connectionColor, lastSignal ? 1f : 0f);
                 Lines.stroke(1f);
                 Lines.line(x, y, link.x, link.y);
                 Fill.circle(x, y, 1.5f);

@@ -1,5 +1,6 @@
 package esoterum.type;
 
+import arc.Core;
 import arc.graphics.*;
 import arc.graphics.g2d.*;
 import arc.math.*;
@@ -19,6 +20,22 @@ public class DelayGate extends BinaryAcceptor{
         configurable = true;
 
         config(Float.class, (DelayGateBuild b, Float f) -> b.delay = f);
+    }
+
+    @Override
+    public void load() {
+        super.load();
+
+        connectionRegion = Core.atlas.find("eso-not-connections");
+    }
+
+    @Override
+    protected TextureRegion[] icons() {
+        return new TextureRegion[]{
+            region,
+            topRegion,
+            connectionRegion
+        };
     }
 
     public class DelayGateBuild extends BinaryAcceptorBuild {
@@ -42,7 +59,6 @@ public class DelayGate extends BinaryAcceptor{
             Draw.rect(region, x, y);
             Draw.color(EsoVars.connectionOffColor, EsoVars.connectionColor, lastSignal ? 1f : 0f);
             Draw.rect(connectionRegion, x, y, rotdeg());
-            Draw.rect(connectionRegion, x, y, rotdeg() - 180);
             Draw.rect(topRegion, x, y);
         }
 

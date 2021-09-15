@@ -1,8 +1,10 @@
 package esoterum.type;
 
+import arc.Core;
 import arc.audio.*;
 import arc.graphics.*;
 import arc.graphics.g2d.Draw;
+import arc.graphics.g2d.TextureRegion;
 import arc.math.geom.*;
 import arc.scene.ui.layout.Table;
 import arc.struct.IntSeq;
@@ -25,6 +27,22 @@ public class NoteBlock extends BinaryAcceptor {
             tile.noteOctave = ints.get(2);
             tile.noteSample = ints.get(3);
         });
+    }
+
+    @Override
+    public void load() {
+        super.load();
+
+        connectionRegion = Core.atlas.find("eso-not-connections");
+    }
+
+    @Override
+    protected TextureRegion[] icons() {
+        return new TextureRegion[]{
+                region,
+                topRegion,
+                connectionRegion
+        };
     }
 
     public class NoteBlockBuild extends BinaryAcceptorBuild {

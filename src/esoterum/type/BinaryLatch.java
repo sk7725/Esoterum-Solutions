@@ -18,6 +18,7 @@ public class BinaryLatch extends BinaryGate{
     public void load() {
         super.load();
         latchRegion = Core.atlas.find(name + "-latch");
+        connectionRegion = Core.atlas.find("eso-gate-connections");
     }
 
     @Override
@@ -25,7 +26,8 @@ public class BinaryLatch extends BinaryGate{
         return new TextureRegion[]{
                 region,
                 topRegion,
-                latchRegion
+                latchRegion,
+                connectionRegion
         };
     }
 
