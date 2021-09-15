@@ -14,19 +14,17 @@ public class BinarySwitch extends BinaryBlock {
         super(name);
         configurable = true;
         autoResetEnabled = false;
+        rotate = false;
         emits = true;
         emitAllDirections = true;
+
+        config(Boolean.class, (BinarySwitchBuild tile, Boolean value) -> tile.lastSignal = value);
     }
 
     public class BinarySwitchBuild extends BinaryBuild {
         @Override
-        public void updateTile(){
-            lastSignal = enabled;
-        }
-        
-        @Override
         public boolean configTapped(){
-            enabled = !enabled;
+            configure(!lastSignal);
             EsoSounds.beep.at(x, y);
             return false;
         }
@@ -38,14 +36,32 @@ public class BinarySwitch extends BinaryBlock {
             if(drawConnection) for (int i = 0; i < 4; i++) {
                 Draw.rect(connectionRegion, x, y, 90 * i);
             }
-            Draw.rect(topRegion, x, y, rotdeg());
+            Draw.rect(topRegion, x, y);
         }
 
         @Override
-        public void created() {
-            super.created();
-            rotation(0);
+        public Object config(){
+            return lastSignal;
         }
 
+        @Override
+        public void write(Writes write){
+            super.write(write);
+            write.bool(lastSignal);
+        }
+
+        @Override
+        public void read(Reads read, byte revision){
+            super.read(read, revision);
+
+            if(revision >= 1){
+                lastSignal = read.bool();
+            }
+        }
+
+        @Override
+        public byte version(){
+            return 1;
+        }
     }
 }
