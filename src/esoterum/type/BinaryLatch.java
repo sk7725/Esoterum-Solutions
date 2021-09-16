@@ -11,6 +11,8 @@ public class BinaryLatch extends BinaryGate{
     public TextureRegion latchRegion;
     public BinaryLatch(String name){
         super(name);
+
+        drawSides = false;
         inputs = new boolean[]{true, false, true};
     }
 

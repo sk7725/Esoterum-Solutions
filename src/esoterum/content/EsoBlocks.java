@@ -19,7 +19,7 @@ public class EsoBlocks implements ContentList {
             esoNode, esoJunction, esoRouter,
             esoWire, esoBuffer, esoAnd, esoAndB, esoAndC,
             esoNot, esoXor, esoLed,
-            esoLatch, esoNoteBlock, esoDelayGate;
+            esoLatch, esoNoteBlock, esoDelayGate, esoMonostable;
 
     public void load(){
         // region environment
@@ -58,11 +58,11 @@ public class EsoBlocks implements ContentList {
             }
         };
 
+        esoSwitch = new BinarySwitch("binary-switch");
+
+        esoButton = new BinaryButton("binary-button");
+
         esoClock = new BinaryClock("binary-clock");
-
-        esoButton = new BinarySwitch("binary-switch");
-
-        esoClickButton = new BinaryButton("binary-button");
 
         esoNode = new BinaryNode("binary-node"){{
             range = 48f;
@@ -162,7 +162,6 @@ public class EsoBlocks implements ContentList {
                 inputs = new boolean[]{false, true, false};
             }
 
-            //Non't - Farmer Thanos
             @Override
             public boolean operation(boolean[] in){
                 return in[1];
@@ -196,6 +195,8 @@ public class EsoBlocks implements ContentList {
         esoNoteBlock = new NoteBlock("binary-note-block");
 
         esoDelayGate = new DelayGate("binary-delay-gate");
-        // endregion binary
+
+        esoMonostable = new BinaryMonostable("binary-monostable");
+        //endregion binary
     }
 }
