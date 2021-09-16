@@ -15,11 +15,11 @@ public class EsoBlocks implements ContentList {
             esoPanelFlat, esoPanelOpen, esoPanelE, esoPanelS, esoPanelO,
 
             // binary
-            esoBlock, esoButton, esoSwitch, esoClickButton, esoClock,
+            esoBlock, esoButton, esoSwitch, esoClock,
             esoNode, esoJunction, esoRouter,
             esoWire, esoBuffer, esoAnd, esoAndB, esoAndC,
             esoNot, esoXor, esoLed,
-            esoLatch, esoNoteBlock, esoDelayGate, esoMonostable;
+            esoLatch, esoNoteBlock, esoDelayGate, esoWaitGate, esoMonostable;
 
     public void load(){
         // region environment
@@ -195,6 +195,8 @@ public class EsoBlocks implements ContentList {
         esoNoteBlock = new NoteBlock("binary-note-block");
 
         esoDelayGate = new DelayGate("binary-delay-gate");
+
+        esoWaitGate = new WaitGate("binary-wait-gate");
 
         esoMonostable = new BinaryMonostable("binary-monostable");
         //endregion binary

@@ -17,6 +17,8 @@ import mindustry.ui.*;
 public class DelayGate extends BinaryAcceptor{
     public int maxSec = 60;
 
+    public TextureRegion clock;
+
     public DelayGate(String name){
         super(name);
         configurable = true;
@@ -38,6 +40,7 @@ public class DelayGate extends BinaryAcceptor{
         super.load();
 
         connectionRegion = Core.atlas.find("eso-not-connections");
+        clock = Core.atlas.find(name + "-clock");
     }
 
     @Override
@@ -55,7 +58,7 @@ public class DelayGate extends BinaryAcceptor{
 
         @Override
         public void updateTile(){
-            lastSignal = delayTimer > delay() && nextSignal;
+            lastSignal = delayTimer >= delay() && nextSignal;
             nextSignal = signal();
 
             if(signal()){
@@ -70,7 +73,9 @@ public class DelayGate extends BinaryAcceptor{
             Draw.rect(region, x, y);
             Draw.color(EsoVars.connectionOffColor, EsoVars.connectionColor, lastSignal ? 1f : 0f);
             Draw.rect(connectionRegion, x, y, rotdeg());
-            Draw.rect(topRegion, x, y);
+            Draw.rect(topRegion, x, y, rotdeg());
+            Draw.color(EsoVars.connectionOffColor, EsoVars.connectionColor, signal() ? 1f : 0f);
+            Draw.rect(clock, x, y, rotdeg());
         }
 
         @Override
