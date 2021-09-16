@@ -72,7 +72,7 @@ public class BinaryGate extends BinaryAcceptor {
             Draw.color(EsoVars.connectionOffColor, EsoVars.connectionColor, lastSignal ? 1f : 0f);
             for(int i = 0; i < 3; i++){
                 if(!inputs[i])continue;
-                Draw.rect(connectionRegion, x, y, (90f + 90f * i) + rotdeg() );
+                Draw.rect(connectionRegion, x, y, (90f + 90f * i) + rotdeg());
             }
             Draw.rect(topRegion, x, y, rotdeg());
             if(drawSides){
