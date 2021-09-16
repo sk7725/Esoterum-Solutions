@@ -15,7 +15,7 @@ public class EsoBlocks implements ContentList {
             esoPanelFlat, esoPanelOpen, esoPanelE, esoPanelS, esoPanelO,
 
             // binary
-            esoBlock, esoButton, esoClickButton, esoClock,
+            esoBlock, esoButton, esoSwitch, esoClickButton, esoClock,
             esoNode, esoJunction, esoRouter,
             esoWire, esoBuffer, esoAnd, esoAndB, esoAndC,
             esoNot, esoXor, esoLed,
