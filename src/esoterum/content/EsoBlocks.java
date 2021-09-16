@@ -88,12 +88,6 @@ public class EsoBlocks implements ContentList {
             }
 
             @Override
-            public void load() {
-                super.load();
-                topRegion = Core.atlas.find("eso-binary-AND-top");
-            }
-
-            @Override
             protected TextureRegion[] icons() {
                 return new TextureRegion[]{
                         region,
@@ -113,12 +107,6 @@ public class EsoBlocks implements ContentList {
             {
                 variant = "C";
                 inputs = new boolean[]{true, true, false};
-            }
-
-            @Override
-            public void load() {
-                super.load();
-                topRegion = Core.atlas.find("eso-binary-AND-top");
             }
 
             @Override
