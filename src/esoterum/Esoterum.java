@@ -4,11 +4,9 @@ import arc.*;
 import arc.graphics.*;
 import arc.util.*;
 import esoterum.content.*;
-import mindustry.ctype.ContentList;
-import mindustry.game.EventType;
+import mindustry.ctype.*;
+import mindustry.game.*;
 import mindustry.mod.*;
-
-import static mindustry.Vars.*;
 
 public class Esoterum extends Mod{
     private static final ContentList[] content = {

@@ -2,10 +2,9 @@ package esoterum.type.binary;
 
 import arc.*;
 import arc.graphics.g2d.*;
-import arc.util.io.Reads;
-import arc.util.io.Writes;
-import esoterum.content.EsoVars;
-import mindustry.logic.LAccess;
+import arc.util.io.*;
+import esoterum.content.*;
+import mindustry.logic.*;
 
 public class BinaryLatch extends BinaryGate{
     public TextureRegion latchRegion;

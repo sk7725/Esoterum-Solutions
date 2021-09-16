@@ -1,10 +1,10 @@
 package esoterum.content;
 
-import arc.Core;
-import arc.assets.AssetDescriptor;
-import arc.assets.loaders.SoundLoader.SoundParameter;
-import arc.audio.Sound;
-import mindustry.Vars;
+import arc.*;
+import arc.assets.*;
+import arc.assets.loaders.SoundLoader.*;
+import arc.audio.*;
+import mindustry.*;
 
 // thanks sh1p
 public class EsoSounds {

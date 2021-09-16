@@ -1,19 +1,16 @@
 package esoterum.type.binary;
 
-import arc.Core;
+import arc.*;
 import arc.audio.*;
 import arc.graphics.*;
-import arc.graphics.g2d.Draw;
-import arc.graphics.g2d.TextureRegion;
-import arc.scene.ui.layout.Table;
-import arc.struct.IntSeq;
+import arc.graphics.g2d.*;
+import arc.scene.ui.layout.*;
+import arc.struct.*;
 import arc.util.*;
-import arc.util.io.Reads;
-import arc.util.io.Writes;
-import esoterum.content.EsoSounds;
-import esoterum.content.EsoVars;
+import arc.util.io.*;
+import esoterum.content.*;
 import mindustry.graphics.*;
-import mindustry.ui.Styles;
+import mindustry.ui.*;
 
 public class NoteBlock extends BinaryAcceptor {
     public NoteBlock(String name){

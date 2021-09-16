@@ -1,11 +1,11 @@
 package esoterum.type.binary;
 
-import arc.Core;
-import arc.graphics.Color;
+import arc.*;
+import arc.graphics.*;
 import arc.graphics.g2d.*;
-import arc.scene.ui.layout.Table;
+import arc.scene.ui.layout.*;
 import arc.util.io.*;
-import esoterum.content.EsoVars;
+import esoterum.content.*;
 import esoterum.interfaces.*;
 import mindustry.gen.*;
 import mindustry.logic.*;

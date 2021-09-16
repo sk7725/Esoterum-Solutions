@@ -1,17 +1,17 @@
 package esoterum.type.binary;
 
-import arc.Core;
+import arc.*;
 import arc.graphics.*;
 import arc.graphics.g2d.*;
 import arc.math.*;
-import arc.math.geom.Point2;
+import arc.math.geom.*;
 import arc.util.*;
 import arc.util.io.*;
-import esoterum.content.EsoVars;
+import esoterum.content.*;
 import mindustry.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
-import mindustry.world.Tile;
+import mindustry.world.*;
 
 public class BinaryNode extends BinaryAcceptor{
     public float range;

@@ -1,6 +1,6 @@
 package esoterum.type.environment;
 
-import mindustry.world.blocks.environment.Floor;
+import mindustry.world.blocks.environment.*;
 
 public class nonBlendFloor extends Floor {
     public nonBlendFloor(String name, int variants){

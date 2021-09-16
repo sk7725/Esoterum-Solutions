@@ -1,10 +1,10 @@
 package esoterum.content;
 
-import arc.Core;
-import arc.graphics.g2d.TextureRegion;
+import arc.*;
+import arc.graphics.g2d.*;
 import esoterum.type.binary.*;
 import esoterum.type.environment.*;
-import mindustry.ctype.ContentList;
+import mindustry.ctype.*;
 import mindustry.world.*;
 import mindustry.world.meta.*;
 

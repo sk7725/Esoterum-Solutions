@@ -4,10 +4,10 @@ import arc.*;
 import arc.graphics.*;
 import arc.scene.*;
 import arc.scene.ui.layout.*;
-import mindustry.game.EventType;
+import mindustry.game.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
-import mindustry.ui.Styles;
+import mindustry.ui.*;
 import mindustry.ui.dialogs.*;
 import mindustry.ui.dialogs.SettingsMenuDialog.*;
 

@@ -1,8 +1,7 @@
 package esoterum.type.binary;
 
-import arc.graphics.g2d.Draw;
-import esoterum.content.EsoSounds;
-import esoterum.content.EsoVars;
+import arc.graphics.g2d.*;
+import esoterum.content.*;
 
 public class BinarySwitch extends BinaryBlock {
     public BinarySwitch(String name){

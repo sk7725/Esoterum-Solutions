@@ -1,15 +1,10 @@
 package esoterum.type.binary;
 
-import arc.*;
 import arc.graphics.g2d.*;
 import arc.math.*;
-import arc.scene.*;
-import arc.scene.ui.*;
-import arc.scene.ui.layout.*;
 import arc.util.*;
 import arc.util.io.*;
 import esoterum.content.*;
-import esoterum.util.*;
 
 public class WaitGate extends DelayGate{
     public WaitGate(String name){

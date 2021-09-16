@@ -1,7 +1,7 @@
 package esoterum.type.binary;
 
 import arc.graphics.g2d.*;
-import esoterum.content.EsoVars;
+import esoterum.content.*;
 
 public class BinaryJunction extends BinaryBlock{
     public BinaryJunction(String name){

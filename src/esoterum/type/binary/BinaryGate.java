@@ -1,8 +1,8 @@
 package esoterum.type.binary;
 
-import arc.Core;
+import arc.*;
 import arc.graphics.g2d.*;
-import esoterum.content.EsoVars;
+import esoterum.content.*;
 
 public class BinaryGate extends BinaryAcceptor {
     /** left, back, right */
