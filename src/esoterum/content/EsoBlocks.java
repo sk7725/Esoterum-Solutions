@@ -15,13 +15,12 @@ public class EsoBlocks implements ContentList {
         esoPanelFlat, esoPanelOpen, esoPanelE, esoPanelS, esoPanelO,
 
         // binary
-        esoBlock, esoButton, esoSwitch, esoClock,
-        esoNode, esoJunction, esoRouter,
-        esoWire, esoBuffer, esoAnd, esoAndB, esoAndC,
-        esoNot, esoXor, esoLed,
-        esoLatch, esoNoteBlock,
-        esoMonostable, esoPulseExtender,
-        esoDelayGate, esoWaitGate;
+        esoBlock, esoWire, esoJunction, esoNode, esoRouter,
+        esoSwitch, esoButton, esoClock,
+        esoAnd, esoAndB, esoAndC, esoXor, esoNot,
+        esoBuffer, esoDelayGate, esoWaitGate,
+        esoLatch, esoMonostable, esoPulseExtender,
+        esoLed, esoNoteBlock;
 
     public void load(){
         // region environment
@@ -60,19 +59,19 @@ public class EsoBlocks implements ContentList {
             }
         };
 
-        esoSwitch = new BinarySwitch("binary-switch");
-
-        esoButton = new BinaryButton("binary-button");
-
-        esoClock = new BinaryClock("binary-clock");
+        esoJunction = new BinaryJunction("binary-junction");
 
         esoNode = new BinaryNode("binary-node"){{
             range = 48f;
         }};
 
-        esoJunction = new BinaryJunction("binary-junction");
-
         esoRouter = new BinaryRouter("binary-router");
+
+        esoSwitch = new BinarySwitch("binary-switch");
+
+        esoButton = new BinaryButton("binary-button");
+
+        esoClock = new BinaryClock("binary-clock");
 
         // LOGIC GATES
         // Skipping OR because they're basically just two wires side by side
@@ -125,6 +124,17 @@ public class EsoBlocks implements ContentList {
             }
         };
 
+        esoXor = new BinaryGate("binary-XOR"){
+            {
+                drawSides = false;
+            }
+
+            @Override
+            public boolean operation(boolean[] in){
+                return in[0] ^ in[2];
+            }
+        };
+
         esoNot = new BinaryGate("binary-NOT"){
             {
                 drawSides = false;
@@ -167,30 +177,19 @@ public class EsoBlocks implements ContentList {
             }
         };
 
-        esoXor = new BinaryGate("binary-XOR"){
-            {
-                drawSides = false;
-            }
+        esoDelayGate = new DelayGate("binary-delay-gate");
 
-            @Override
-            public boolean operation(boolean[] in){
-                return in[0] ^ in[2];
-            }
-        };
-
-        esoLed = new BinaryLed("binary-led");
+        esoWaitGate = new WaitGate("binary-wait-gate");
 
         esoLatch = new BinaryLatch("binary-latch");
-
-        esoNoteBlock = new NoteBlock("binary-note-block");
 
         esoMonostable = new BinaryMonostable("binary-monostable");
 
         esoPulseExtender = new PulseExtender("binary-pulse-extender");
 
-        esoDelayGate = new DelayGate("binary-delay-gate");
+        esoLed = new BinaryLed("binary-led");
 
-        esoWaitGate = new WaitGate("binary-wait-gate");
+        esoNoteBlock = new NoteBlock("binary-note-block");
         //endregion binary
     }
 }
