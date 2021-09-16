@@ -28,11 +28,11 @@ public class EsoSounds {
 
         beep = loadSound("beep");
         bells = new Sound[]{
-                loadSound("notes/bells/bellc2"),
-                loadSound("notes/bells/bellc3"),
-                loadSound("notes/bells/bellc4"),
-                loadSound("notes/bells/bellc5"),
-                loadSound("notes/bells/bellc6")
+            loadSound("notes/bells/bellc2"),
+            loadSound("notes/bells/bellc3"),
+            loadSound("notes/bells/bellc4"),
+            loadSound("notes/bells/bellc5"),
+            loadSound("notes/bells/bellc6")
         };
     }
 }
