@@ -9,11 +9,11 @@ import mindustry.world.meta.*;
 
 public class EsoBlocks implements ContentList {
     public static Block
-            esoBlock, esoSwitch, esoButton, esoClock,
-            esoNode, esoJunction, esoRouter,
-            esoWire, esoBuffer, esoAnd, esoAndB, esoAndC,
-            esoNot, esoXor, esoLed,
-            esoLatch, esoNoteBlock, esoDelayGate;
+        esoBlock, esoSwitch, esoButton, esoClock,
+        esoNode, esoJunction, esoRouter,
+        esoWire, esoBuffer, esoAnd, esoAndB, esoAndC,
+        esoNot, esoXor, esoLed,
+        esoLatch, esoNoteBlock, esoDelayGate, esoMonostable;
 
     public void load(){
         esoBlock = new BinaryBlock("test-binary-block"){{
@@ -176,5 +176,7 @@ public class EsoBlocks implements ContentList {
         esoNoteBlock = new NoteBlock("binary-note-block");
 
         esoDelayGate = new DelayGate("binary-delay-gate");
+
+        esoMonostable = new BinaryMonostable("binary-monostable");
     }
 }

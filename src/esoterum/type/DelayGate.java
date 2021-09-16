@@ -54,15 +54,15 @@ public class DelayGate extends BinaryAcceptor{
         public int delaySec = 1, delayTick;
 
         @Override
-        public void updateTile() {
+        public void updateTile(){
+            lastSignal = delayTimer > delay() && nextSignal;
+            nextSignal = signal();
+
             if(signal()){
                 if(delayTimer < delay()) delayTimer += Time.delta;
             }else{
                 delayTimer = 0;
             }
-
-            lastSignal = delayTimer > delay() && nextSignal;
-            nextSignal = signal();
         }
 
         @Override
