@@ -23,17 +23,17 @@ public class EsoBlocks implements ContentList {
 
     public void load(){
         // region environment
-        esoPanel = new Floor("chamber-panel", 0);
-        esoPanelFlat = new Floor("chamber-panel-flat", 0);
-        esoPanel1 = new Floor("chamber-panel-1", 0);
-        esoPanel2 = new Floor("chamber-panel-2", 0);
-        esoPanel3 = new Floor("chamber-panel-3", 0);
+        esoPanel = new nonBlendFloor("chamber-panel", 0);
+        esoPanelFlat = new nonBlendFloor("chamber-panel-flat", 0);
+        esoPanel1 = new nonBlendFloor("chamber-panel-1", 0);
+        esoPanel2 = new nonBlendFloor("chamber-panel-2", 0);
+        esoPanel3 = new nonBlendFloor("chamber-panel-3", 0);
 
-        esoPanelOpen = new Floor("chamber-panel-open", 3);
+        esoPanelOpen = new nonBlendFloor("chamber-panel-open", 3);
 
-        esoPanelE = new Floor("chamber-panel-e", 0);
-        esoPanelS = new Floor("chamber-panel-s", 0);
-        esoPanelO = new Floor("chamber-panel-o", 0);
+        esoPanelE = new nonBlendFloor("chamber-panel-e", 0);
+        esoPanelS = new nonBlendFloor("chamber-panel-s", 0);
+        esoPanelO = new nonBlendFloor("chamber-panel-o", 0);
         // endregion environment
 
         // region binary
