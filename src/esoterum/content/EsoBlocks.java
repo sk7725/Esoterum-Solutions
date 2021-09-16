@@ -143,7 +143,6 @@ public class EsoBlocks implements ContentList {
                 inputs = new boolean[]{false, true, false};
             }
 
-            //Non't - Farmer Thanos
             @Override
             public boolean operation(boolean[] in){
                 return in[1];

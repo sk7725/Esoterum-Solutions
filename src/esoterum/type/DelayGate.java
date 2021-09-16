@@ -1,25 +1,36 @@
 package esoterum.type;
 
-import arc.Core;
+import arc.*;
 import arc.graphics.*;
 import arc.graphics.g2d.*;
 import arc.math.*;
 import arc.scene.*;
 import arc.scene.ui.*;
 import arc.scene.ui.layout.*;
+import arc.struct.*;
 import arc.util.*;
 import arc.util.io.*;
 import esoterum.content.*;
+import esoterum.util.*;
 import mindustry.ui.*;
 
 public class DelayGate extends BinaryAcceptor{
-    float minDelay = 0.1f, maxDelay = 60f;
+    public int maxSec = 60;
 
     public DelayGate(String name){
         super(name);
         configurable = true;
 
-        config(Float.class, (DelayGateBuild b, Float f) -> b.delay = f);
+        config(Float.class, (DelayGateBuild b, Float delay) -> {
+            float d = Mathf.floor(delay);
+            b.delaySec = (int)d;
+            b.delayTick = (int)((delay - d) * 60);
+        });
+
+        config(IntSeq.class, (DelayGateBuild b, IntSeq i) -> {
+            b.delaySec = i.get(0);
+            b.delayTick = i.get(1);
+        });
     }
 
     @Override
@@ -40,17 +51,17 @@ public class DelayGate extends BinaryAcceptor{
 
     public class DelayGateBuild extends BinaryAcceptorBuild {
         public float delayTimer = 0f;
-        public float delay = 1f;
+        public int delaySec = 1, delayTick;
 
         @Override
         public void updateTile() {
             if(signal()){
-                if(delayTimer < delay * 60)delayTimer += Time.delta;
+                if(delayTimer < delay()) delayTimer += Time.delta;
             }else{
                 delayTimer = 0;
             }
 
-            lastSignal = delayTimer > delay * 60&& nextSignal;
+            lastSignal = delayTimer > delay() && nextSignal;
             nextSignal = signal();
         }
 
@@ -73,7 +84,7 @@ public class DelayGate extends BinaryAcceptor{
         }
 
         @Override
-        public void displayBars(Table table) {
+        public void displayBars(Table table){
             super.displayBars(table);
             table.row();
             table.table(e -> {
@@ -81,7 +92,11 @@ public class DelayGate extends BinaryAcceptor{
                     e.clearChildren();
                     e.row();
                     e.left();
-                    e.label(() -> "Delay: " + delay * 60 + " ticks / " + delay + "s").color(Color.lightGray);
+                    e.label(() -> "Delay: " +
+                        (delaySec > 0 ? EsoUtils.pluralValue(delaySec, "second") : "") +
+                        (delaySec > 0 && delayTick > 0 ? " + " : delaySec == 0 && delayTick == 0 ? "None" : "") +
+                        (delayTick > 0 ? EsoUtils.pluralValue(delayTick, "tick") : "")
+                    ).color(Color.lightGray);
                 };
 
                 e.update(rebuild);
@@ -91,49 +106,90 @@ public class DelayGate extends BinaryAcceptor{
         @Override
         public void buildConfiguration(Table table) {
             table.setBackground(Styles.black5);
-            table.table(t -> {
-                t.button("-", () -> {
-                    delay -= 0.1f;
-                    delay = Mathf.clamp(Math.round(delay * 10f) / 10f, minDelay, maxDelay);
-                }).size(40);
-                TextField dField = t.field(delay + "s", s -> {
-                    if(!s.isEmpty()){
-                        s = s.replaceAll("[^\\d.]", ""); //God, I love google. I have no idea what the first part even is.
-                        delay = Float.parseFloat(s);
-                        delay = Mathf.clamp(delay, minDelay, maxDelay);
-                    }
-                }).labelAlign(Align.center)
-                    .growX()
-                    .fillX()
-                    .center()
-                    .size(80, 40)
-                    .get();
-                dField.update(() -> {
-                    Scene stage = dField.getScene();
-                    if(!(stage != null && stage.getKeyboardFocus() == dField)) dField.setText(Strings.autoFixed(delay, 2) + "s");
+            table.table(a -> {
+                a.table(t -> {
+                    t.button("-", () -> {
+                        delaySec--;
+                        delaySec = Math.max(delaySec, 0);
+                    }).size(40);
+                    TextField dField = t.field(delaySec + "s", s -> {
+                            s = EsoUtils.extractNumber(s);
+                            if(!s.isEmpty()){
+                                delaySec = Mathf.floor(Float.parseFloat(s));
+                            }
+                        }).labelAlign(Align.center)
+                        .growX()
+                        .fillX()
+                        .center()
+                        .size(80, 40)
+                        .get();
+                    dField.update(() -> {
+                        Scene stage = dField.getScene();
+                        if(!(stage != null && stage.getKeyboardFocus() == dField))
+                            dField.setText(delaySec + "s");
+                    });
+                    t.button("+", () -> {
+                        delaySec++;
+                        delaySec = Math.min(delaySec, maxSec);
+                    }).size(40);
                 });
-                t.button("+", () -> {
-                    delay += 0.1f;
-                    delay = Mathf.clamp(Math.round(delay * 10f) / 10f, minDelay, maxDelay);
-                }).size(40);
+                a.row();
+                Slider dSlider = a.slider(0, maxSec, 1, delaySec, newDelay -> delaySec = (int)newDelay).center().size(160, 40).get();
+                dSlider.update(() -> dSlider.setValue(delaySec));
             });
             table.row();
-            Slider dSlider = table.slider(minDelay, maxDelay, 0.1f, delay, (float newDelay) -> {
-                delay = Math.round(newDelay * 10) / 10f;
-            }).center().size(160, 40).get();
-            dSlider.update(() -> {
-              dSlider.setValue(delay);
+            table.add("+");
+            table.row();
+            table.table(b -> {
+                b.table(t -> {
+                    t.button("-", () -> {
+                        delayTick--;
+                        delayTick = Math.max(delayTick, 0);
+                    }).size(40);
+                    TextField dField = t.field(delayTick + "s", s -> {
+                            s = EsoUtils.extractNumber(s);
+                            if(!s.isEmpty()){
+                                delayTick = Mathf.floor(Float.parseFloat(s));
+                                delayTick = Mathf.clamp(delayTick, 0, 60);
+                            }
+                        }).labelAlign(Align.center)
+                        .growX()
+                        .fillX()
+                        .center()
+                        .size(80, 40)
+                        .get();
+                    dField.update(() -> {
+                        Scene stage = dField.getScene();
+                        if(!(stage != null && stage.getKeyboardFocus() == dField))
+                            dField.setText(delayTick + "t");
+                    });
+                    t.button("+", () -> {
+                        delayTick++;
+                        delayTick = Math.min(delayTick, 60);
+                    }).size(40);
+                });
+                b.row();
+                Slider dSlider = b.slider(0, 60, 1, delaySec, newDelay -> delayTick = (int)newDelay).center().size(160, 40).get();
+                dSlider.update(() -> dSlider.setValue(delayTick));
             });
+        }
+
+        public int delay(){
+            return delaySec * 60 + delayTick;
         }
 
         @Override
         public Object config() {
-            return delay;
+            return IntSeq.with(delaySec, delayTick);
         }
 
         @Override
-        public byte version() {
-            return 1;
+        public void write(Writes write) {
+            super.write(write);
+
+            write.f(delayTimer);
+            write.i(delaySec);
+            write.i(delayTick);
         }
 
         @Override
@@ -142,16 +198,22 @@ public class DelayGate extends BinaryAcceptor{
 
             if(revision == 1){
                 delayTimer = read.f();
-                delay = read.f();
+
+                float delay = read.f();
+                float d = Mathf.floor(delay);
+                delaySec = (int)d;
+                delayTick = (int)((delay - d) * 60);
+            }
+            if(revision >= 2){
+                delayTimer = read.f();
+                delaySec = read.i();
+                delayTick = read.i();
             }
         }
 
         @Override
-        public void write(Writes write) {
-            super.write(write);
-
-            write.f(delayTimer);
-            write.f(delay);
+        public byte version() {
+            return 2;
         }
     }
 }
