@@ -57,6 +57,7 @@ public class BinaryLatch extends BinaryGate{
             Draw.rect(region, x, y);
             Draw.color(EsoVars.connectionOffColor, EsoVars.connectionColor, lastSignal ? 1f : 0f);
             Draw.rect(connectionRegion, x, y, rotdeg());
+            Draw.rect(topRegion, x, y);
             Draw.color(EsoVars.connectionOffColor, EsoVars.connectionColor, store ? 1f : 0f);
             Draw.rect(latchRegion, x, y);
         }
