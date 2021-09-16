@@ -20,8 +20,8 @@ public class EsoBlocks implements ContentList {
             esoWire, esoBuffer, esoAnd, esoAndB, esoAndC,
             esoNot, esoXor, esoLed,
             esoLatch, esoNoteBlock,
-            esoLock, esoMonostable,
-            esoPulseExtender, esoDelayGate, esoWaitGate;
+            esoMonostable, esoPulseExtender,
+            esoDelayGate, esoWaitGate;
 
     public void load(){
         // region environment
@@ -185,8 +185,6 @@ public class EsoBlocks implements ContentList {
         esoNoteBlock = new NoteBlock("binary-note-block");
 
         esoMonostable = new BinaryMonostable("binary-monostable");
-
-        esoLock = new BinaryLock("binary-lock");
 
         esoPulseExtender = new PulseExtender("binary-pulse-extender");
 
