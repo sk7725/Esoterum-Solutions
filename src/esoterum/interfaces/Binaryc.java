@@ -14,6 +14,7 @@ public interface Binaryc {
         if(!from.block.rotate && from.emitAllDirections()){
             return from.lastSignal;
         }
+        // relativeTo() does not account for block rotation, so subtract it with the rotation.
         int rot = (from.relativeTo(to) - from.rotation) % 4;
         return switch(rot){
             case 0 -> from.signalFront();

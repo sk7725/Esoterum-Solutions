@@ -10,18 +10,18 @@ import mindustry.world.meta.*;
 
 public class EsoBlocks implements ContentList {
     public static Block
-            // environment
-            esoPanel, esoPanel1, esoPanel2, esoPanel3,
-            esoPanelFlat, esoPanelOpen, esoPanelE, esoPanelS, esoPanelO,
+        // environment
+        esoPanel, esoPanel1, esoPanel2, esoPanel3,
+        esoPanelFlat, esoPanelOpen, esoPanelE, esoPanelS, esoPanelO,
 
-            // binary
-            esoBlock, esoButton, esoSwitch, esoClock,
-            esoNode, esoJunction, esoRouter,
-            esoWire, esoBuffer, esoAnd, esoAndB, esoAndC,
-            esoNot, esoXor, esoLed,
-            esoLatch, esoNoteBlock,
-            esoMonostable, esoPulseExtender,
-            esoDelayGate, esoWaitGate;
+        // binary
+        esoBlock, esoButton, esoSwitch, esoClock,
+        esoNode, esoJunction, esoRouter,
+        esoWire, esoBuffer, esoAnd, esoAndB, esoAndC,
+        esoNot, esoXor, esoLed,
+        esoLatch, esoNoteBlock,
+        esoMonostable, esoPulseExtender,
+        esoDelayGate, esoWaitGate;
 
     public void load(){
         // region environment
@@ -90,10 +90,10 @@ public class EsoBlocks implements ContentList {
             @Override
             protected TextureRegion[] icons() {
                 return new TextureRegion[]{
-                        region,
-                        topRegion,
-                        Core.atlas.find("eso-gate-connections1"),
-                        variantRegion
+                    region,
+                    topRegion,
+                    Core.atlas.find("eso-gate-connections1"),
+                    variantRegion
                 };
             }
 
@@ -112,10 +112,10 @@ public class EsoBlocks implements ContentList {
             @Override
             protected TextureRegion[] icons() {
                 return new TextureRegion[]{
-                        region,
-                        topRegion,
-                        Core.atlas.find("eso-gate-connections2"),
-                        variantRegion
+                    region,
+                    topRegion,
+                    Core.atlas.find("eso-gate-connections2"),
+                    variantRegion
                 };
             }
 
@@ -160,9 +160,9 @@ public class EsoBlocks implements ContentList {
             @Override
             protected TextureRegion[] icons() {
                 return new TextureRegion[]{
-                        region,
-                        topRegion,
-                        Core.atlas.find("eso-not-connections")
+                    region,
+                    topRegion,
+                    Core.atlas.find("eso-not-connections")
                 };
             }
         };

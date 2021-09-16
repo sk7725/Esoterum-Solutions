@@ -16,7 +16,6 @@ import static mindustry.Vars.*;
 public class EsoSettings {
     private static final ColorPicker colorPicker = new ColorPicker();
     public SettingsTable eso;
-    public Color oldColor = Pal.accent.cpy();
 
     public void init(){
         BaseDialog dialog = new BaseDialog("Esoterum Solutions");
