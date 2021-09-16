@@ -2,10 +2,10 @@ package esoterum.content;
 
 import arc.Core;
 import arc.graphics.g2d.TextureRegion;
-import esoterum.type.*;
+import esoterum.type.binary.*;
+import esoterum.type.environment.*;
 import mindustry.ctype.ContentList;
 import mindustry.world.*;
-import mindustry.world.blocks.environment.Floor;
 import mindustry.world.meta.*;
 
 public class EsoBlocks implements ContentList {

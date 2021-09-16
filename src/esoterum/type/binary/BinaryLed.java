@@ -1,4 +1,4 @@
-package esoterum.type;
+package esoterum.type.binary;
 
 import arc.Core;
 import arc.graphics.Color;
@@ -7,10 +7,8 @@ import arc.graphics.g2d.TextureRegion;
 import arc.scene.ui.layout.*;
 import arc.util.*;
 import arc.util.io.*;
-import arc.struct.*;
-import mindustry.graphics.*;
 import mindustry.gen.*;
-import mindustry.input.*;
+
 import static mindustry.Vars.*;
 
 public class BinaryLed extends BinaryAcceptor {

@@ -1,9 +1,7 @@
-package esoterum.type;
+package esoterum.type.binary;
 
 import arc.Core;
-import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
-import arc.graphics.g2d.Lines;
 import esoterum.content.EsoVars;
 
 public class BinaryRouter extends BinaryAcceptor{

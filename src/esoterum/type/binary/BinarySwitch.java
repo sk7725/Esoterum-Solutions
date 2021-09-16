@@ -1,4 +1,4 @@
-package esoterum.type;
+package esoterum.type.binary;
 
 import arc.graphics.g2d.Draw;
 import esoterum.content.EsoSounds;

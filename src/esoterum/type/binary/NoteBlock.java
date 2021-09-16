@@ -1,11 +1,10 @@
-package esoterum.type;
+package esoterum.type.binary;
 
 import arc.Core;
 import arc.audio.*;
 import arc.graphics.*;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.TextureRegion;
-import arc.math.geom.*;
 import arc.scene.ui.layout.Table;
 import arc.struct.IntSeq;
 import arc.util.*;

@@ -1,4 +1,4 @@
-package esoterum.type;
+package esoterum.type.binary;
 
 import arc.*;
 import arc.graphics.g2d.*;

@@ -1,7 +1,6 @@
 package esoterum.interfaces;
 
-import arc.util.*;
-import esoterum.type.*;
+import esoterum.type.binary.BinaryBlock;
 import mindustry.gen.*;
 
 public interface Binaryc {

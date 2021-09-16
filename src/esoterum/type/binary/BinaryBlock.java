@@ -1,4 +1,4 @@
-package esoterum.type;
+package esoterum.type.binary;
 
 import arc.Core;
 import arc.graphics.Color;

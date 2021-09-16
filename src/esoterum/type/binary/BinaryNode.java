@@ -1,4 +1,4 @@
-package esoterum.type;
+package esoterum.type.binary;
 
 import arc.Core;
 import arc.graphics.*;
@@ -8,11 +8,9 @@ import arc.math.geom.Point2;
 import arc.util.*;
 import arc.util.io.*;
 import esoterum.content.EsoVars;
-import esoterum.interfaces.*;
 import mindustry.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
-import mindustry.world.Build;
 import mindustry.world.Tile;
 
 public class BinaryNode extends BinaryAcceptor{

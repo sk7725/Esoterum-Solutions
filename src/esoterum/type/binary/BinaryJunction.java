@@ -1,12 +1,7 @@
-package esoterum.type;
+package esoterum.type.binary;
 
-import arc.graphics.Color;
 import arc.graphics.g2d.*;
-import arc.struct.*;
-import arc.util.*;
 import esoterum.content.EsoVars;
-import mindustry.gen.*;
-import mindustry.graphics.*;
 
 public class BinaryJunction extends BinaryBlock{
     public BinaryJunction(String name){
