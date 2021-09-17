@@ -13,6 +13,11 @@ public class BinaryButton extends BinaryBlock{
         rotate = false;
         emits = true;
         emitAllDirections = true;
+        config(Boolean.class, (BinaryButtonBuild build, Boolean value) -> {
+            //GOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOBERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
+            gooberGoBrr();
+        });
+            
     }
 
     public class BinaryButtonBuild extends BinaryBuild{
@@ -26,11 +31,15 @@ public class BinaryButton extends BinaryBlock{
             }
         }
 
-        @Override
-        public boolean configTapped(){
+        public void gooberGoBrr(){
             lastSignal = true;
             timer = duration;
             EsoSounds.beep.at(x, y);
+        }
+        
+        @Override
+        public boolean configTapped(){
+            configure(true);
             return false;
         }
 
