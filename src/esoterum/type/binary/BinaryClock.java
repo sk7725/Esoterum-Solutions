@@ -1,4 +1,4 @@
-package esoterum.world.blocks.binary;
+package esoterum.type.binary;
 
 import arc.graphics.*;
 import arc.math.*;
@@ -81,11 +81,14 @@ public class BinaryClock extends BinarySwitch {
             table.setBackground(Styles.black5);
             table.table(a -> {
                 a.table(t -> {
-                    t.button("-", () -> configure(IntSeq.with(Math.max(intervalSec - 1, 0), intervalTick))).size(40);
+                    t.button("-", () -> {
+                        intervalSec--;
+                        intervalSec = Math.max(intervalSec, 0);
+                    }).size(40);
                     TextField dField = t.field(intervalSec + "s", s -> {
                             s = EsoUtils.extractNumber(s);
                             if(!s.isEmpty()){
-                                configure(IntSeq.with(Mathf.floor(Float.parseFloat(s)), intervalTick));
+                                intervalSec = Mathf.floor(Float.parseFloat(s));
                             }
                         }).labelAlign(Align.center)
                         .growX()
@@ -98,7 +101,9 @@ public class BinaryClock extends BinarySwitch {
                         if(!(stage != null && stage.getKeyboardFocus() == dField))
                             dField.setText(intervalSec + "s");
                     });
-                    t.button("+", () -> configure(IntSeq.with(intervalSec + 1, intervalTick))).size(40);
+                    t.button("+", () -> {
+                        intervalSec++;
+                    }).size(40);
                 });
             });
             table.row();
@@ -106,14 +111,15 @@ public class BinaryClock extends BinarySwitch {
             table.row();
             table.table(b -> {
                 b.table(t -> {
-                    t.button("-", () -> configure(IntSeq.with(intervalSec, Math.max(intervalTick - 1, 0)))).size(40);
+                    t.button("-", () -> {
+                        intervalTick--;
+                        intervalTick = Math.max(intervalTick, 0);
+                    }).size(40);
                     TextField dField = t.field(intervalTick + "s", s -> {
                             s = EsoUtils.extractNumber(s);
                             if(!s.isEmpty()){
-                                configure(IntSeq.with(intervalSec,  Mathf.clamp(
-                                    Mathf.floor(Float.parseFloat(s)),
-                                    0, 60
-                                )));
+                                intervalTick = Mathf.floor(Float.parseFloat(s));
+                                intervalTick = Mathf.clamp(intervalTick, 0, 60);
                             }
                         }).labelAlign(Align.center)
                         .growX()
@@ -126,7 +132,10 @@ public class BinaryClock extends BinarySwitch {
                         if(!(stage != null && stage.getKeyboardFocus() == dField))
                             dField.setText(intervalTick + "t");
                     });
-                    t.button("+", () -> configure(IntSeq.with(intervalSec, Math.min(intervalTick + 1, 60)))).size(40);
+                    t.button("+", () -> {
+                        intervalTick++;
+                        intervalTick = Math.min(intervalTick, 60);
+                    }).size(40);
                 });
                 b.row();
             });

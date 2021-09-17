@@ -1,4 +1,4 @@
-package esoterum.world.blocks.binary;
+package esoterum.type.binary;
 
 import arc.graphics.g2d.*;
 import arc.math.*;
