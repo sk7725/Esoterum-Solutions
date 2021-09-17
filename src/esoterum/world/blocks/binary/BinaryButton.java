@@ -13,6 +13,12 @@ public class BinaryButton extends BinaryBlock{
         rotate = false;
         emits = true;
         emitAllDirections = true;
+
+        config(Boolean.class, (BinaryButtonBuild b, Boolean on) -> {
+            b.lastSignal = on;
+            b.timer = duration;
+            EsoSounds.beep.at(b.x, b.y);
+        });
     }
 
     public class BinaryButtonBuild extends BinaryBuild{
@@ -28,9 +34,7 @@ public class BinaryButton extends BinaryBlock{
 
         @Override
         public boolean configTapped(){
-            lastSignal = true;
-            timer = duration;
-            EsoSounds.beep.at(x, y);
+            configure(true);
             return false;
         }
 
