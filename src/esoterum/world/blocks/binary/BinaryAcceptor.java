@@ -1,4 +1,4 @@
-package esoterum.type.binary;
+package esoterum.world.blocks.binary;
 
 import mindustry.graphics.*;
 

@@ -1,4 +1,4 @@
-package esoterum.type.environment;
+package esoterum.world.blocks.environment;
 
 import mindustry.world.blocks.environment.*;
 

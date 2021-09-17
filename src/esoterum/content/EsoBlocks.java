@@ -2,8 +2,8 @@ package esoterum.content;
 
 import arc.*;
 import arc.graphics.g2d.*;
-import esoterum.type.binary.*;
-import esoterum.type.environment.*;
+import esoterum.world.blocks.binary.*;
+import esoterum.world.blocks.environment.*;
 import mindustry.ctype.*;
 import mindustry.world.*;
 import mindustry.world.meta.*;
